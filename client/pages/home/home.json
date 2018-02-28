@@ -1,0 +1,5 @@
+{
+	"usingComponents": {
+		"klinput": "../../components/klinput/klinput"
+	}
+}

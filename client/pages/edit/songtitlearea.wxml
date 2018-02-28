@@ -1,0 +1,36 @@
+<!--pages/edit/songtitlearea.wxml-->
+<view class='song_title_area-bg'>
+  <view class=''>
+    <form bindsubmit='_onSave'>
+      <view class='song_title_area-item'>
+        <text>Key:</text>
+        <input class='{{isEditing?"editing":""}}' disabled='{{!isEditing}}' value='{{key}}' focus='{{isEditing}}' name='key'></input>
+      </view>
+      <block wx:if='{{isExpand}}'>
+        <view class='song_title_area-item'>
+          <text>Play:</text>
+          <input class='{{isEditing?"editing":""}}' disabled='{{!isEditing}}' value='{{playKey}}' name='playKey'></input>
+        </view>
+        <view class='song_title_area-item'>
+          <text>Capo:</text>
+          <input class='{{isEditing?"editing":""}}' disabled='{{!isEditing}}' value='{{capo}}' name='capo'></input>
+        </view>
+        <view class='song_title_area-item'>
+          <text>Tempo:</text>
+          <input class='{{isEditing?"editing":""}}' disabled='{{!isEditing}}' value='{{tempo}}' name='tempo'></input>
+        </view>
+        <view class='song_title_area-item'>
+          <block wx:if='{{isEditing}}'>
+            <button size='mini' type='primary' form-type='submit'>保存</button>
+          </block>
+          <block wx:else>
+            <image class='edit-img' src='../../resources/edit.png' catchtap='_onClickEdit'></image>
+          </block>
+        </view>
+      </block>
+    </form>
+  </view>
+
+
+  <image class='arrow-img' src='{{!isExpand?"../../resources/arrow_right.png":"../../resources/arrow_down.png"}}' catchtap='_onClickArrow'></image>
+</view>

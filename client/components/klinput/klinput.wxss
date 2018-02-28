@@ -1,0 +1,10 @@
+/* components/kl-input/kl-input.wxss */
+
+.kl-input-container {
+	background: #a9a9a9;
+}
+
+/* .kl-input_hidden {
+  opacity: 0;
+	z-index: -1;
+} */

@@ -1,0 +1,8 @@
+<!--pages/tab2/tab2.wxml-->
+<view class='list' wx:for='{{songs}}'>
+  <view class='cell' data-index='{{index}}' bindtap='onClickSong'>
+    <view>歌名：{{item.songName}}</view>
+    <image class='close-img' src='../../resources/close.png' catchtap='onClickDelete' data-index='{{index}}'></image>
+  </view>
+</view>
+<image class='search-img' src='../../resources/search.png' bindtap='onClickSearch'></image>

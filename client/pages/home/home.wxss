@@ -1,0 +1,21 @@
+.cell{
+	border: 1rpx solid lightgray;
+	padding: 50rpx 30rpx;
+	margin:30rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.close-img{
+	width: 50rpx;
+	height: 50rpx;
+}
+
+
+.search-img{
+	width: 100rpx;
+	height: 100rpx;
+	position: fixed;
+	right: 30rpx;
+	bottom: 50rpx;
+}

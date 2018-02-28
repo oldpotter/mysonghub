@@ -1,0 +1,15 @@
+<!--pages/tab1/tab1.wxml-->
+<view class='bg'>
+  <view wx:for='{{songs}}'>
+    <view class='song' bindtap='onClickSong' data-index='{{index}}'>
+      <view>歌名：{{item.name}}</view>
+      <view>艺术家：{{item.artists[0].name}}</view>
+      <view>专辑：{{item.ablum.name}}</view>
+    </view>
+
+  </view>
+  <view class='search-bg'>
+    <input class='input' placeholder='输入要搜索的歌曲名' bindinput='onInput' bindconfirm='onClickSearch' focus='true'></input>
+    <button class='search' bindtap='onClickSearch'>搜索</button>
+  </view>
+</view>
