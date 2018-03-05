@@ -1,0 +1,8 @@
+/* pages/edit_v2/tab.wxss */
+.edit{
+	position: fixed;
+	bottom: 50rpx;
+	right: 30rpx;
+	width: 80rpx;
+	height: 80rpx;
+}

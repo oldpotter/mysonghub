@@ -1,0 +1,6 @@
+{
+	"usingComponents": {
+		"klinput": "../../components/klinput/klinput",
+		"songtitlearea":"./songtitlearea"
+	}
+}

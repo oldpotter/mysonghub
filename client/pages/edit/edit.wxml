@@ -1,66 +1,13 @@
-<!-- 和弦输入区域 -->
-<songtitlearea  class='song_title_area' bind:onsonginfosaved='onSongInfoSaved' key='{{songInfo.key}}' playKey='{{songInfo.playKey}}' capo='{{songInfo.capo}}' tempo='{{songInfo.tempo}}'/>
-<view class='chord_input_panel-bg' hidden='{{hiddenInput}}'>
-  <!-- 最近使用和弦 -->
-  <block wx:for='{{recentUsedScales}}'>
-    <view class='chord_input_panel-item' data-chord='{{item}}' bindtap='onClickScaleItem'>
-      <view class='chord_input_panel-chord'>{{item}}</view>
-    </view>
-  </block>
-  <view class='chord_input_panel-line'></view>
-  <block wx:for='{{scales}}'>
-    <view class='chord_input_panel-item' data-chord='{{item}}' bindtap='onClickScaleItem'>
-      <view class='chord_input_panel-chord'>{{item}}</view>
-    </view>
-  </block>
-  <view class='chord_input_panel-line'></view>
-  <block wx:for='{{kinds}}'>
-    <view class='chord_input_panel-item' data-chord='{{item}}' bindtap='onClickScaleItem'>
-      <view class='chord_input_panel-chord'>{{item}}</view>
-    </view>
-  </block>
-  <view class='chord_input_panel-line'></view>
-	<!-- 底部 -->
-  <view class='chord_input_panel-bottom'>
-    <view class='chord_input_panel-res_bg'>
-      <view class='chord_input_panel-res' hidden='{{showEditChordInput}}'>{{resChord}}</view>
-      <image class='chord_input_panel-img' hidden='{{!resChord}}' src='../../resources/delete.png' bindtap='onClickDeleteChord'></image>
-      <image class='chord_input_panel-img' hidden='{{!resChord}}' src='../../resources/edit.png' bindtap='onClickEditChord'></image>
-    </view>
-
-    <view class='chord_input_panel-btns'>
-      <button class='chord_input_panel-btn' size='mini' type='primary' bindtap='onClockConfirmInput'>确定</button>
-      <button class='chord_input_panel-btn' size='mini' type='default' bindtap='onClickCloseInput'>取消</button>
-    </view>
-  </view>
-
-</view>
-
-<!-- klinput -->
-<klinput class='klinput-input' title='输入和弦' hidden='{{!showEditChordInput}}' bind:onclickconfirm='onClickConfirmEdit' bind:onclickcancel='onClickCancelEdit' />
-
-<!-- 正文 -->
-<view class='content'>
-  <view wx:for='{{array}}' wx:for-item='rowItem' wx:for-index='rowIndex'>
-    <block wx:if='{{rowItem.isBlank}}'>
-      <view class='chords_line'>
-        <block wx:for='{{rowItem.value}}' wx:for-item='columnItem' wx:for-index='columnIndex'>
-          <view class='chord' hover-class='touch' bindtap='onClickChord' data-position='{{rowIndex + "-"+columnIndex}}'>
-            <text decode='true'>{{columnItem}}</text>
-          </view>
-        </block>
-      </view>
-    </block>
-    <block wx:else>
-      <view class='lyric_line'>
-        <text decode='true'>{{rowItem.value}}</text>
-        <image hidden='{{!isEditing}}' class='delete-img' src='../../resou h irces/close.png' data-position='{{rowIndex}}' bindtap='onClickDeleteLyric'></image>
+<!--pages/edit/edit.wxml-->
+<view class='bg bg-padding'>
+  <view wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
+    <block wx:for='{{lineItem}}' wx:for-item='rowItem' wx:for-index='rowIdx'>
+      <view class='row_item' hover-class='on-hovor' bindtap='onClickRowItem' data-position='{{lineIdx}}-{{rowIdx}}'>
+        <view>{{rowItem.chord}}</view>
+        <view>
+          <text decode='true'>{{rowItem.word}}</text>
+        </view>
       </view>
     </block>
   </view>
-</view>
-<!-- 功能按钮 -->
-<view class='btns'>
-  <image class='edit-img' src='../../resources/edit.png' bindtap='onClickEdit'></image>
-  <image class='save-img' src='../../resources/save.png' bindtap='onClickSave'></image>
 </view>

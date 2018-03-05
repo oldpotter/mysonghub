@@ -1,0 +1,90 @@
+const config = require('../../config.js')
+const util = require('../../utils/util.js')
+const app = getApp()
+Page({
+	songId: undefined,
+	songName: undefined,
+	data: {
+		oriLyric: undefined
+	},
+
+	onLoad(options) {
+		const _this = this
+		this.songId = options.songId
+		this.songName = options.songName
+		if (!this.songId) {
+			wx.showToast({
+				title: 'songId不存在',
+				icon: 'error',
+				image: '',
+				duration: 0,
+				mask: true,
+				success: function (res) { },
+				fail: function (res) { },
+				complete: function (res) { },
+			})
+		}
+		wx.showLoading({
+			title: '',
+			mask: true,
+			success: function (res) { },
+			fail: function (res) { },
+			complete: function (res) { },
+		})
+		wx.request({
+			url: `${config.service.lyricUrl}${this.songId}`,
+			success: function (res) {
+				if (res.statusCode == 200) {
+					const obj = JSON.parse(res.data.data.body)
+					const oriLyric = obj.lrc.lyric
+						.replace(/\[[\d.:]+\]/g, '')
+					_this.setData({ oriLyric })
+					wx.hideLoading()
+				}
+			},
+			fail: function (res) {
+				console.error(res)
+			},
+		})
+	},
+
+	//开始编辑歌词
+	onClickEditLyricImg() {
+		if (!this.data.oriLyric) {
+			return
+		}
+		let tab = this.data.oriLyric
+		tab = tab.split('\n')
+			.map(line => {
+				const arr = line.split('')
+				for (let i = 0; i < 4; i++) {
+					arr.push('&nbsp;&nbsp;')
+					arr.splice(0, 0, '&nbsp;&nbsp;')
+				}
+
+				return arr.map(word => {
+					const item = {
+						chord: undefined,
+						word: word
+					}
+					return item
+				})
+			})
+
+		app.songs.push({
+			songId: this.songId,
+			songName: this.songName,
+			tab: tab
+		})
+		wx.setStorage({
+			key: 'songs',
+			data: app.songs,
+		})
+		wx.redirectTo({
+			url: '../edit/edit',
+			success: function (res) { },
+			fail: function (res) { },
+			complete: function (res) { },
+		})
+	},
+})

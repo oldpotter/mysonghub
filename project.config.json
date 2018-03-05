@@ -22,7 +22,14 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": 0,
+					"name": "歌词",
+					"pathName": "pages/orilyric/orilyric",
+					"query": "songId=5244895"
+				}
+			]
 		}
 	}
 }

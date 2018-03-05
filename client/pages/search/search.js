@@ -32,9 +32,9 @@ Page({
 		const index = event.currentTarget.dataset.index
 		const songId = this.data.songs[index].id
 		const songName = this.data.songs[index].name
-		console.log(this.data.songs[index].id)
+		// console.log(this.data.songs[index].id)
 		wx.navigateTo({
-			url: `../edit/edit?songId=${songId}&songName=${songName}`,
+			url: `../orilyric/orilyric?songId=${songId}&songName=${songName}`,
 			success: function (res) { },
 			fail: function (res) { },
 			complete: function (res) { },

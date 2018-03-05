@@ -9,7 +9,7 @@ Page({
 	},
 
 	onClickSong(event) {
-		console.log(event)
+		// console.log(event)
 		const index = event.currentTarget.dataset.index
 		wx.navigateTo({
 			url: `../edit/edit?index=${index}&songId=${app.songs[index].songId}`,
