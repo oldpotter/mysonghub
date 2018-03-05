@@ -64,7 +64,7 @@ Page({
 
 				return arr.map(word => {
 					const item = {
-						chord: undefined,
+						chord: '',
 						word: word
 					}
 					return item

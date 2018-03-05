@@ -1,0 +1,83 @@
+/* pages/edit/pad.wxss */
+
+.bg {
+  width: 100%;
+  height: 80%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  text-align: center;
+  background: lightgray;
+}
+
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.head {
+  height: 300rpx;
+}
+
+.chord {
+  width: 250rpx;
+  height: 250rpx;
+  border-radius: 125rpx;
+  border: 1rpx solid darkgray;
+}
+
+.body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+  height: 500rpx;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.scroll {
+  height: 450rpx;
+}
+
+
+.btn_item {
+  border: 1rpx solid darkgray;
+  width: 100rpx;
+  height: 80rpx;
+  margin-top: 10rpx;
+  border-radius: 40rpx;
+}
+
+.bottom {
+  height: 100rpx;
+  margin: 20rpx;
+  border-top: 1rpx solid darkgray;
+}
+
+.scroll-x {
+	display: flex;
+	flex-direction: row;
+}
+.recent_item {
+  border: 1rpx solid darkgray;
+  width: 100rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  margin-left: 20rpx;
+}
+
+.onTouch {
+  background: darkgray;
+}

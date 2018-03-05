@@ -28,6 +28,12 @@
 					"name": "歌词",
 					"pathName": "pages/orilyric/orilyric",
 					"query": "songId=5244895"
+				},
+				{
+					"id": -1,
+					"name": "Test",
+					"pathName": "pages/test/test",
+					"query": ""
 				}
 			]
 		}

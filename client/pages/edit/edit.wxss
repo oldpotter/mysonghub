@@ -1,4 +1,8 @@
 /* pages/edit/edit.wxss */
+.tab{
+	margin: 50rpx;
+}
+
 .on-hovor{
 	background: lightgray;
 }
@@ -6,4 +10,5 @@
 .row_item{
 	display: inline-block;
 	border-bottom: 1rpx dotted lightgray;
+	font-size: 26px;
 }

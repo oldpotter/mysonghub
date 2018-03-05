@@ -1,6 +1,6 @@
 <!--pages/edit/edit.wxml-->
-<view class='bg bg-padding'>
-  <view wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
+<view class='bg'>
+  <view class='tab' wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
     <block wx:for='{{lineItem}}' wx:for-item='rowItem' wx:for-index='rowIdx'>
       <view class='row_item' hover-class='on-hovor' bindtap='onClickRowItem' data-position='{{lineIdx}}-{{rowIdx}}'>
         <view>{{rowItem.chord}}</view>
@@ -10,4 +10,5 @@
       </view>
     </block>
   </view>
+  <pad show='{{showPad}}' chord='{{chord}}' recentItems='{{recentChords}}' bind:onclickok='onPadClosed'/>
 </view>
