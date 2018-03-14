@@ -1,1 +1,10 @@
-<!--pages/test/test.wxml-->
+
+<scroll-view scroll-x>
+  <view class='hor'>
+    <block wx:for='{{items}}'>
+      <view>{{item.title}}</view>
+    </block>
+  </view>
+</scroll-view>
+
+<klbuttons items='{{items}}' />

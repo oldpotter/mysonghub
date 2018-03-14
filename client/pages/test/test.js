@@ -1,32 +1,95 @@
-var order = ['red', 'yellow', 'blue', 'green', 'red']
 Page({
-	data: {
-		toView: 'red',
-		scrollTop: 100,
-		items:[1,1,1,1,1,1,1,1,1,,1]
-	},
-	upper: function (e) {
-		console.log(e)
-	},
-	lower: function (e) {
-		console.log(e)
-	},
-	scroll: function (e) {
-		console.log(e)
-	},
-	tap: function (e) {
-		for (var i = 0; i < order.length; ++i) {
-			if (order[i] === this.data.toView) {
-				this.setData({
-					toView: order[i + 1]
-				})
-				break
-			}
-		}
-	},
-	tapMove: function (e) {
-		this.setData({
-			scrollTop: this.data.scrollTop + 10
-		})
+	data:{
+		items:[
+			{
+				idx:1,
+				title:'测试1',
+				src:'../../resources/close.png'
+			},
+
+			{
+				idx: 2,
+				title: '测试2',
+				src: '../../resources/close.png'
+			},
+
+			{
+				idx: 3,
+				title: '测试3',
+				src: '../../resources/close.png'
+			},
+
+			{
+				idx: 4,
+				title: '测试4',
+				src: '../../resources/close.png'
+			},
+
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+			{
+				idx: 5,
+				title: '测试5',
+				src: '../../resources/close.png'
+			},
+		]
 	}
 })

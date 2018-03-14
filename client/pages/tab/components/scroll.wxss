@@ -1,0 +1,23 @@
+/* pages/tab/components/scroll.wxss */
+
+.bg {
+  width: 400rpx;
+  position: fixed;
+  z-index: 1;
+  bottom: 200rpx;
+  transform: translateX(200rpx);
+}
+
+.fade {
+  opacity: 0.1;
+}
+
+.hide {
+  opacity: 0;
+}
+
+.img {
+  width: 100rpx;
+  height: 100rpx;
+  float: right;
+}

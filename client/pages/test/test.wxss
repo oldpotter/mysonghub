@@ -1,36 +1,11 @@
-.button
-{
-  margin: 20rpx;
-}
-.scroll-x {
+.hor {
   display: flex;
-  flex-direction: row; 
+	flex-direction: row;
+  width: 600rpx;
+	font-size: 25px;
 }
-.scroll-y {
-  display: flex;
-  flex-direction: column; 
+
+.ver {
+  height: 300rpx;
 }
-.green
-{
-  display: flex;
-  align-items: center;
-  width: 400rpx;
-  height: 400rpx;
-  background: green;
-}
-.red
-{
-  display: flex;
-  align-items: center;
-  width: 400rpx;
-  height: 400rpx;
-  background: red;
-}
-.yellow
-{
-  display: flex;
-  align-items: center;
-  width: 400rpx;
-  height: 400rpx;
-  background: yellow;
-}
+

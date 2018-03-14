@@ -1,4 +1,5 @@
 /* pages/edit/edit.wxss */
+
 .tab{
 	margin: 50rpx;
 }
@@ -9,6 +10,10 @@
 
 .row_item{
 	display: inline-block;
+}
+
+.row_item_editing{
 	border-bottom: 1rpx dotted lightgray;
 	font-size: 26px;
 }
+

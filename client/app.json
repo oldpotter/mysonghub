@@ -2,8 +2,7 @@
   "pages": [
     "pages/home/home",
     "pages/search/search",
-    "pages/edit/edit",
-    "pages/edit-bak/edit",
+    "pages/tab/tab",
     "pages/orilyric/orilyric",
     "pages/test/test"
   ],

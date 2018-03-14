@@ -1,0 +1,37 @@
+/* components/klbuttons/klbuttons.wxss */
+.touch{
+	background: lightgray;
+}
+
+.bg {
+  position: fixed;
+	z-index: 1;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  height: 120rpx;
+  background: #ececec;
+}
+
+.items {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.item {
+  /* height: 110rpx; */
+  margin: 10rpx 20rpx;
+  border: 1rpx solid lightgray;
+  font-size: 11px;
+  text-align: center;
+  border-radius: 20rpx;
+}
+
+.img {
+  margin: 5rpx 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
