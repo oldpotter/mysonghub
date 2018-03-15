@@ -15,8 +15,21 @@
   opacity: 0;
 }
 
-.img {
+.img_play {
   width: 100rpx;
   height: 100rpx;
-  float: right;
+	float: right;
+}
+
+.img_top{
+	width:50rpx;
+	height: 50rpx;
+	float: left;
+	margin: 0 30rpx;
+}
+.btns{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 }

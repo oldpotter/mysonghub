@@ -37,13 +37,18 @@ Component({
 			})
 		},
 
-		onTap() {
+		onClickPlay() {
 			const isPlaying = !this.data.isPlaying
 			this.setData({ isPlaying })
-			this.triggerEvent('play', {
+			this.triggerEvent('scrollpad', {
+				event:'play',
 				isPlaying: this.data.isPlaying,
 				value: this.data.value
 			})
 		},
+
+		onClickTop(){
+			this.triggerEvent('scrollpad',{event:'top'},{})
+		}
 	}
 })

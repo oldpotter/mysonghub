@@ -7,7 +7,7 @@ Page({
 		tab: undefined,
 		showPad: false,//和弦面板
 		showScrollPad: false,//调速面板
-		isScrolling:false,
+		isScrolling: false,
 		chord: '',
 		param: '',
 		recentChords: [],
@@ -63,7 +63,7 @@ Page({
 			case 0: {
 				const showScrollPad = !this.data.showScrollPad
 				this.setData({ showScrollPad })
-				if(!showScrollPad){
+				if (!showScrollPad) {
 					clearInterval(this.scrollInterval)
 				}
 			}
@@ -72,20 +72,29 @@ Page({
 
 	//scroll pad
 	bindScrollPad(event) {
-		const { isPlaying, value } = event.detail
-		if (isPlaying) {
-			//开始滚屏
-			this.scrollInterval = setInterval(() => {
-				this.scrollTo = this.scrollTop + value
-				wx.pageScrollTo({
-					scrollTop: this.scrollTo,
-					duration: 1000,
-				})
-			}, 1000)
-		} else {
-			// 停止滚屏
-			clearInterval(this.scrollInterval)
+		const eventName = event.detail.event
+		if (eventName == 'play') {
+			const { isPlaying, value } = event.detail
+			if (isPlaying) {
+				//开始滚屏
+				this.scrollInterval = setInterval(() => {
+					this.scrollTo = this.scrollTop + value
+					wx.pageScrollTo({
+						scrollTop: this.scrollTo,
+						duration: 1000,
+					})
+				}, 1000)
+			} else {
+				// 停止滚屏
+				clearInterval(this.scrollInterval)
+			}
+		} else if (eventName == 'top') {
+			wx.pageScrollTo({
+				scrollTop: 0,
+				duration: 1000,
+			})
 		}
+
 
 	},
 
