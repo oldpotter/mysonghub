@@ -1,11 +1,10 @@
 /* pages/tab/components/scroll.wxss */
 
 .bg {
-  width: 400rpx;
+  width: 100%;
   position: fixed;
   z-index: 1;
-  bottom: 200rpx;
-  transform: translateX(200rpx);
+	bottom: 400rpx;
 }
 
 .fade {

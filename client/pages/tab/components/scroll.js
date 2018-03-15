@@ -1,7 +1,15 @@
 Component({
 	properties: {
-		hidden: Boolean,
 		isPlaying: Boolean,
+		hidden: {
+			type:Boolean,
+			observer:('_hidden')
+		},
+		
+		value:{
+			type:Number,
+			value:38,
+		}
 	},
 
 	data: {
@@ -9,6 +17,10 @@ Component({
 	},
 
 	methods: {
+		_hidden(){
+			this.setData({isPlaying:false})
+		},
+
 		onChanging(event) {
 			this.setData({
 				value: event.detail.value

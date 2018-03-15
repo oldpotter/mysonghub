@@ -7,6 +7,7 @@ Page({
 		tab: undefined,
 		showPad: false,//和弦面板
 		showScrollPad: false,//调速面板
+		isScrolling:false,
 		chord: '',
 		param: '',
 		recentChords: [],
@@ -47,13 +48,13 @@ Page({
 	},
 
 	onPageScroll(event) {
-		console.log('onPageScroll')
 		this.scrollTop = event.scrollTop
 		// if (this.scrollTop != this.scrollTo) {
 		// 	console.log('onPageScroll-auto stop')
 		// 	clearInterval(this.scrollInterval)
 		// }
 	},
+
 	//点击功能按钮
 	onClickKLButtons(event) {
 		const index = event.detail.index
@@ -62,6 +63,9 @@ Page({
 			case 0: {
 				const showScrollPad = !this.data.showScrollPad
 				this.setData({ showScrollPad })
+				if(!showScrollPad){
+					clearInterval(this.scrollInterval)
+				}
 			}
 		}
 	},
@@ -72,15 +76,13 @@ Page({
 		if (isPlaying) {
 			//开始滚屏
 			this.scrollInterval = setInterval(() => {
-				console.log('interval')
-				this.scrollTo = this.scrollTop + 50
+				this.scrollTo = this.scrollTop + value
 				wx.pageScrollTo({
 					scrollTop: this.scrollTo,
 					duration: 1000,
 				})
 			}, 1000)
 		} else {
-			console.log('stop')
 			// 停止滚屏
 			clearInterval(this.scrollInterval)
 		}

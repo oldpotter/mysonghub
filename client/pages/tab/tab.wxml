@@ -1,5 +1,5 @@
 <!--pages/edit/edit.wxml-->
-<scroll hidden='{{!showScrollPad}}' bind:play='bindScrollPad'/>
+<scroll hidden='{{!showScrollPad}}' isPlaying='{{isScrolling}}' bind:play='bindScrollPad' />
 <pad show='{{showPad}}' chord='{{chord}}' recentItems='{{recentChords}}' bind:onclickok='onPadClosed' />
 <klbuttons items='{{items}}' hidden='{{showButtons}}' bind:ontap='onClickKLButtons' />
 <view class='bg'>
@@ -13,5 +13,5 @@
       </view>
     </block>
   </view>
-
 </view>
+<view class='test'></view>

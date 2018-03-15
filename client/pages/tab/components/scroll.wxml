@@ -1,7 +1,5 @@
 <!--pages/tab/components/scroll.wxml-->
-<block wx:if='{{!hidden}}'>
-  <view class='bg'>
-    <slider class='slider {{isPlaying?"hide":""}}' block-size='20' block-color='#AB48AB' backgroundColor='#f6f6f6' activeColor='#AB48AB' bindchanging='onChanging'></slider>
-    <image class='img {{isPlaying?"fade":""}}' src='{{isPlaying?"../../../resources/pause.png":"../../../resources/start.png"}}' catchtap='onTap'></image>
+  <view class='bg' hidden='{{hidden}}'>
+    <slider class='slider {{isPlaying?"hide":""}}' block-size='20' block-color='#AB48AB' backgroundColor='#f6f6f6' activeColor='#AB48AB' bindchanging='onChanging' value='{{value}}'></slider>
+    <image class='img {{isPlaying?"fade":""}}' src='{{isPlaying?"../../../resources/pause.png":"../../../resources/start.png"}}' bindtap='onTap'></image>
   </view>
-</block>
