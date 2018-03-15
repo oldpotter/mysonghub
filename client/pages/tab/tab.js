@@ -5,13 +5,12 @@ Page({
 	scrollInterval: undefined,
 	data: {
 		tab: undefined,
-		showPad: false,//和弦面板
-		showScrollPad: false,//调速面板
-		isScrolling: false,
+		showPad: false,//是否显示和弦面板
+		showScrollPad: false,//是否显示调速面板
+		isEditing: false,//是否处于编辑模式
 		chord: '',
 		param: '',
 		recentChords: [],
-		isEditing: false,//处于编辑模式
 		showButtons: false,//显示底部按钮们
 		items: [
 			{
@@ -26,11 +25,17 @@ Page({
 				on: false,
 				src: '../../resources/edit.png'
 			},
+			{
+				idx: 2,
+				title: '帮助',
+				on: false,
+				src: '../../resources/tip.png'
+			},
 		]
 	},
 
 	onLoad(options) {
-		this.index = options.index
+		this.index = options.index || app.songs.length - 1
 		this.setData({
 			tab: app.songs[this.index].tab
 		})
@@ -66,6 +71,26 @@ Page({
 				if (!showScrollPad) {
 					clearInterval(this.scrollInterval)
 				}
+				break
+			}
+			//编辑
+			case 1: {
+				this.setData({ isEditing: !this.data.isEditing })
+				break
+			}
+			//提示
+			case 2: {
+				wx.showToast({
+					title: '编辑模式下，长按一行删除歌词',
+					icon: 'none',
+					image: '',
+					duration: 3000,
+					mask: true,
+					success: function (res) { },
+					fail: function (res) { },
+					complete: function (res) { },
+				})
+				break
 			}
 		}
 	},
@@ -108,6 +133,24 @@ Page({
 			showPad: true,
 			chord: this.data.tab[lineIdx][rowIdx].chord,
 			param
+		})
+	},
+
+	//长按一行
+	onLongPressRowItem(event) {
+		const _this = this
+		wx.showActionSheet({
+			itemList: ['删除'],
+			itemColor: '#f43a2f',
+			success: function (res) {
+				const position = event.currentTarget.dataset.position
+				const index = position.split('-')[0]
+				let tab = _this.data.tab
+				tab.splice(index, 1)
+				_this.setData({tab})
+			},
+			fail: function (res) { },
+			complete: function (res) { },
 		})
 	},
 

@@ -81,7 +81,7 @@ Page({
 			data: app.songs,
 		})
 		wx.redirectTo({
-			url: '../edit/edit',
+			url: '../tab/tab',
 			success: function (res) { },
 			fail: function (res) { },
 			complete: function (res) { },

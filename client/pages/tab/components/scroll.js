@@ -27,7 +27,7 @@ Component({
 			})
 			wx.showToast({
 				title: event.detail.value + '',
-				icon: 'success',
+				icon: 'none',
 				image: '',
 				duration: 200,
 				mask: true,

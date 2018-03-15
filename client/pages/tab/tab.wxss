@@ -17,3 +17,8 @@
 	font-size: 26px;
 }
 
+.del_img{
+	width: 50rpx;
+	height: 50rpx;
+}
+
