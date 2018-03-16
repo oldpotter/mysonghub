@@ -1,0 +1,4 @@
+<!--components/klinfo/klinfo.wxml-->
+<view class='bg' hidden='{{hidden}}'>
+	<text class='tip'>{{text}}</text>
+</view>

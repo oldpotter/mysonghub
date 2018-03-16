@@ -1,0 +1,15 @@
+/* components/klinfo/klinfo.wxss */
+.bg{
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	background: #585858;
+	border-radius: 15rpx;
+	padding: 30rpx;
+	z-index: 2;
+}
+
+.tip{
+	color: white;
+}

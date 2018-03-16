@@ -1,4 +1,5 @@
 <!--pages/edit/edit.wxml-->
+<klinfo hidden='{{!showInfo}}' text='{{tips}}'/>
 <scroll hidden='{{!showScrollPad}}' isPlaying='{{isScrolling}}' bind:scrollpad='bindScrollPad' />
 <pad show='{{showPad}}' chord='{{chord}}' recentItems='{{recentChords}}' bind:onclickok='onPadClosed' />
 <klbuttons items='{{items}}' hidden='{{showButtons}}' bind:ontap='onClickKLButtons' />

@@ -7,6 +7,8 @@ Page({
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
+		showInfo:false,//显示信息
+		tips:`1、长按删除一行。`,//帮助
 		isEditing: false,//是否处于编辑模式
 		chord: '',
 		param: '',
@@ -17,19 +19,23 @@ Page({
 				idx: 1,
 				title: '滚屏',
 				on: false,
-				src: '../../resources/run.png'
+				src: '../../resources/run.png',
+				srcOn:'../../resources/run_on.png'
 			},
 			{
 				idx: 1,
 				title: '编辑',
 				on: false,
-				src: '../../resources/edit.png'
+				src: '../../resources/edit.png',
+				srcOn: '../../resources/edit_on.png',
+	
 			},
 			{
 				idx: 2,
 				title: '帮助',
 				on: false,
-				src: '../../resources/tip.png'
+				src: '../../resources/tip.png',
+				srcOn: '../../resources/tip_on.png'
 			},
 		]
 	},
@@ -80,16 +86,7 @@ Page({
 			}
 			//提示
 			case 2: {
-				wx.showToast({
-					title: '编辑模式下，长按一行删除歌词',
-					icon: 'none',
-					image: '',
-					duration: 3000,
-					mask: true,
-					success: function (res) { },
-					fail: function (res) { },
-					complete: function (res) { },
-				})
+				this.setData({showInfo:!this.data.showInfo})
 				break
 			}
 		}

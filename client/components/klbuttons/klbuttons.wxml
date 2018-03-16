@@ -5,7 +5,7 @@
       <view class='items'>
         <block wx:for='{{items}}' wx:key='idx'>
           <view class='item' hover-class='touch' data-index='{{index}}' catchtap='tap'>
-            <image class='img' src='{{item.src}}'></image>
+            <image class='img' src='{{!item.on?item.src:item.srcOn}}'></image>
             <view class='title' >{{item.title}}</view>
           </view>
         </block>

@@ -2,6 +2,7 @@
 	"usingComponents": {
 		"pad": "./pad",
 		"klbuttons": "../../components/klbuttons/klbuttons",
+		"klinfo": "../../components/klinfo/klinfo",
 		"scroll": "./components/scroll"
 	}
 }

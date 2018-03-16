@@ -1,5 +1,0 @@
- <view class='bg'> 
-  <movable-area style='width:100%;height:100%;background:red;'>
-    <movable-view direction='all' style='width:200rpx;height:200rpx;background:yellow'></movable-view>
-  </movable-area>
- </view> 
