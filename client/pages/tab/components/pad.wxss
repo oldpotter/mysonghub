@@ -1,0 +1,90 @@
+/* pages/edit/pad.wxss */
+
+.bg {
+  width: 100%;
+  height: 840rpx;
+  position: fixed;
+  left: 0;
+  bottom:120rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  text-align: center;
+  background: lightgray;
+	z-index: 1;
+}
+
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.head {
+	position: relative;
+	width: 200rpx;
+	height: 200rpx;
+	border-radius: 100rpx;
+	border: 1rpx solid  darkgray;
+	background: #ab48ab;
+  top: 30rpx;
+	left: 50%;
+	transform: translate(-50%,-30rpx);
+	line-height: 200rpx;
+}
+
+.line{
+	border-top: 1rpx solid darkgray;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.btn_item {
+   border: 1rpx solid darkgray; 
+  width: 100rpx;
+  height: 60rpx;
+  border-radius: 20rpx;
+	background: #ececec;
+	margin: 5rpx 10rpx;
+}
+
+.green{
+	background: #40bb3a;
+}
+
+.big_btn{
+	height: 100rpx;
+	line-height: 100rpx;
+}
+
+.row_reverse{
+	flex-direction: row-reverse;
+	/* background: saddlebrown; */
+}
+
+.bottom {
+  height: 100rpx;
+  margin: 20rpx;
+  border-top: 1rpx solid darkgray;
+}
+
+.scroll-x {
+	display: flex;
+	flex-direction: row;
+}
+.recent_item {
+  border: 1rpx solid darkgray;
+  width: 100rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  margin-left: 20rpx;
+}
+
+.onTouch {
+  background: darkgray;
+}

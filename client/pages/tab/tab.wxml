@@ -1,8 +1,12 @@
 <!--pages/edit/edit.wxml-->
 <klinfo hidden='{{!showInfo}}' text='{{tips}}'/>
+
 <scroll hidden='{{!showScrollPad}}' isPlaying='{{isScrolling}}' bind:scrollpad='bindScrollPad' />
+
 <pad show='{{showPad}}' chord='{{chord}}' recentItems='{{recentChords}}' bind:onclickok='onPadClosed' />
+
 <klbuttons items='{{items}}' hidden='{{showButtons}}' bind:ontap='onClickKLButtons' />
+
 <view class='bg'>
   <view class='tab' wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
     <block wx:for='{{lineItem}}' wx:for-item='rowItem' wx:for-index='rowIdx'>

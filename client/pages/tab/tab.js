@@ -8,7 +8,9 @@ Page({
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
 		showInfo:false,//显示信息
-		tips:`1、长按删除一行。`,//帮助
+		tips:`编辑模式下：
+		1、长按删除一行。
+		2、点击单字添加和弦。`,//帮助
 		isEditing: false,//是否处于编辑模式
 		chord: '',
 		param: '',
@@ -82,6 +84,9 @@ Page({
 			//编辑
 			case 1: {
 				this.setData({ isEditing: !this.data.isEditing })
+				if(!this.data.isEditing){
+					this.setData({showPad:false})
+				}
 				break
 			}
 			//提示

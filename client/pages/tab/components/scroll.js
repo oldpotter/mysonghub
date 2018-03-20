@@ -2,13 +2,12 @@ Component({
 	properties: {
 		isPlaying: Boolean,
 		hidden: {
-			type:Boolean,
-			observer:('_hidden')
+			type: Boolean,
+			observer: '_hidden'
 		},
-		
-		value:{
-			type:Number,
-			value:38,
+		value: {
+			type: Number,
+			value: 38,
 		}
 	},
 
@@ -17,8 +16,8 @@ Component({
 	},
 
 	methods: {
-		_hidden(){
-			this.setData({isPlaying:false})
+		_hidden() {
+			this.setData({ isPlaying: false })
 		},
 
 		onChanging(event) {
@@ -41,14 +40,14 @@ Component({
 			const isPlaying = !this.data.isPlaying
 			this.setData({ isPlaying })
 			this.triggerEvent('scrollpad', {
-				event:'play',
+				event: 'play',
 				isPlaying: this.data.isPlaying,
 				value: this.data.value
 			})
 		},
 
-		onClickTop(){
-			this.triggerEvent('scrollpad',{event:'top'},{})
+		onClickTop() {
+			this.triggerEvent('scrollpad', { event: 'top' }, {})
 		}
 	}
 })

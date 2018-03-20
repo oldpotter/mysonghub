@@ -55,5 +55,6 @@ Component({
 			}
 			this.setData({ chord })
 		},
+
 	}
 })

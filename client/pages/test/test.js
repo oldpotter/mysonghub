@@ -1,14 +1,24 @@
 Page({
+	data:{
+		arr:[]
+	},
 	onReady(){
-		wx.showToast({
-			title: 'sadfasdfasds',
-			icon: 'none',
-			image: '',
-			duration: 112120,
-			mask: true,
-			success: function(res) {},
-			fail: function(res) {},
-			complete: function(res) {},
-		})
+		const arr = this.data.arr
+		for(let i=0;i<100;i++){
+			arr.push('yyyyyyyyyyyyyyyyyyyyy')
+		}
+		this.setData({arr})
+	},
+	blue(){
+		console.log('blue')
+	},
+	yellow() {
+		console.log('yellow')
+	},
+	red() {
+		console.log('red')
+	},
+	cs(){
+		console.log('cs')
 	}
 })

@@ -1,11 +1,12 @@
-.hor {
-  display: flex;
-	flex-direction: row;
-  width: 600rpx;
-	font-size: 25px;
+.bg{
+	background: lightblue;
 }
 
-.ver {
-  height: 300rpx;
+.s{
+	position: fixed;
+	left: 0;
+	top: 300rpx;
+	background: rebeccapurple;
+	height: 200rpx;
+	width: 100%;
 }
-

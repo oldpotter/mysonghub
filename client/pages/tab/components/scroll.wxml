@@ -5,5 +5,4 @@
     <image class='img_top {{isPlaying?"hide":""}}' src='../../../resources/top.png' catchtap='onClickTop'></image>
     <image class='img_play {{isPlaying?"fade":""}}' src='{{isPlaying?"../../../resources/pause.png":"../../../resources/start.png"}}' catchtap='onClickPlay'></image>
   </view>
-
 </view>
