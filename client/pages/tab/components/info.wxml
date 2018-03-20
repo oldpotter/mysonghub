@@ -1,0 +1,9 @@
+<!--pages/tab/components/info.wxml-->
+<view class='bg'>
+  <block wx:for='{{info}}'>
+    <view class='item'>
+      <view>{{item.title}}:</view>
+      <input  disabled='{{!isEditing}}' value='{{item.value}}' placeholder='{{isEditing?"请输入"+item.title:""}}' bindinput='bindinput' data-index='{{index}}' />
+    </view>
+  </block>
+</view>

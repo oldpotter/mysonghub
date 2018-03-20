@@ -4,6 +4,12 @@ Component({
 		hidden: Boolean
 	},
 
+	ready() {
+		const items = this.data.items
+		items.forEach(i => i.on = false)
+		this.setData({items})
+	},
+
 	methods: {
 		tap(event) {
 			const index = event.currentTarget.dataset.index
@@ -11,7 +17,7 @@ Component({
 			this.setData({
 				[param]: !this.data.items[index].on
 			})
-			this.triggerEvent('ontap',{index},{})
+			this.triggerEvent('ontap', { index }, {})
 		}
 	}
 })

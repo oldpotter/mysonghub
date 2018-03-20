@@ -14,8 +14,9 @@ Component({
 	data: {
 		value: 0
 	},
-
+	
 	methods: {
+
 		_hidden() {
 			this.setData({ isPlaying: false })
 		},

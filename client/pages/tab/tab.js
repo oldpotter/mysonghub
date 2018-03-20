@@ -3,15 +3,17 @@ Page({
 	scrollTop: 0,//页面滚动距离px
 	scrollTo: 0,//要滚到的距离
 	scrollInterval: undefined,
+
 	data: {
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
-		showInfo:false,//显示信息
-		tips:`编辑模式下：
+		showInfo: false,//显示信息
+		tips: `编辑模式下：
 		1、长按删除一行。
 		2、点击单字添加和弦。`,//帮助
 		isEditing: false,//是否处于编辑模式
+		info: undefined,//谱子信息
 		chord: '',
 		param: '',
 		recentChords: [],
@@ -22,7 +24,7 @@ Page({
 				title: '滚屏',
 				on: false,
 				src: '../../resources/run.png',
-				srcOn:'../../resources/run_on.png'
+				srcOn: '../../resources/run_on.png'
 			},
 			{
 				idx: 1,
@@ -30,7 +32,7 @@ Page({
 				on: false,
 				src: '../../resources/edit.png',
 				srcOn: '../../resources/edit_on.png',
-	
+
 			},
 			{
 				idx: 2,
@@ -45,12 +47,14 @@ Page({
 	onLoad(options) {
 		this.index = options.index || app.songs.length - 1
 		this.setData({
-			tab: app.songs[this.index].tab
+			tab: app.songs[this.index].tab,
+			info: app.songs[this.index].info ? app.songs[this.index].info : undefined
 		})
 	},
 
 	onUnload() {
 		app.songs[this.index].tab = this.data.tab
+		app.songs[this.index].info = this.data.info
 		wx.setStorage({
 			key: 'songs',
 			data: app.songs,
@@ -84,14 +88,14 @@ Page({
 			//编辑
 			case 1: {
 				this.setData({ isEditing: !this.data.isEditing })
-				if(!this.data.isEditing){
-					this.setData({showPad:false})
+				if (!this.data.isEditing) {
+					this.setData({ showPad: false })
 				}
 				break
 			}
 			//提示
 			case 2: {
-				this.setData({showInfo:!this.data.showInfo})
+				this.setData({ showInfo: !this.data.showInfo })
 				break
 			}
 		}
@@ -149,7 +153,7 @@ Page({
 				const index = position.split('-')[0]
 				let tab = _this.data.tab
 				tab.splice(index, 1)
-				_this.setData({tab})
+				_this.setData({ tab })
 			},
 			fail: function (res) { },
 			complete: function (res) { },
@@ -167,5 +171,10 @@ Page({
 			recentChords.push(event.detail)
 			this.setData({ recentChords })
 		}
-	}
+	},
+
+	//info
+	bindInfo(event) {
+		this.setData({ info: event.detail.info })
+	},
 })
