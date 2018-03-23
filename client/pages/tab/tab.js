@@ -112,7 +112,7 @@ Page({
 					this.scrollTo = this.scrollTop + value
 					wx.pageScrollTo({
 						scrollTop: this.scrollTo,
-						duration: 1000,
+						duration: 200,
 					})
 				}, 1000)
 			} else {

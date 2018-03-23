@@ -1,6 +1,6 @@
 <!--pages/tab/components/scroll.wxml-->
 <view class='bg' hidden='{{hidden}}'>
-  <slider class='slider {{isPlaying?"hide":""}}' block-size='20' block-color='#AB48AB' backgroundColor='#f6f6f6' activeColor='#AB48AB' bindchanging='onChanging' value='{{value}}'></slider>
+  <slider class='slider {{isPlaying?"hide":""}}' block-size='20' block-color='#AB48AB' backgroundColor='#f6f6f6' activeColor='#AB48AB' bindchanging='onChanging' value='{{value}}' min='5' step='5'></slider>
   <view class='btns'>
     <image class='img_top {{isPlaying?"hide":""}}' src='../../../resources/top.png' catchtap='onClickTop'></image>
     <image class='img_play {{isPlaying?"fade":""}}' src='{{isPlaying?"../../../resources/pause.png":"../../../resources/start.png"}}' catchtap='onClickPlay'></image>

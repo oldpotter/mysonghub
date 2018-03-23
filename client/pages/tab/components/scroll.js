@@ -7,7 +7,7 @@ Component({
 		},
 		value: {
 			type: Number,
-			value: 38,
+			value: 20,
 		}
 	},
 
