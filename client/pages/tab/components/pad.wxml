@@ -1,45 +1,22 @@
-<wxs module='wxs'>
-  var isGreen = function(text) {
-    return text == 'OK'
-  }
-
-  var isBig = function(text) {
-    return text == 'OK' || text == 'DEL'
-  }
-
-  var isLastLine = function(index) {
-    return index == 4
-  }
-
-  module.exports = {
-    isGreen: isGreen,
-    isBig: isBig,
-		isLastLine:isLastLine
-  }
-</wxs>
 <view class='bg' hidden='{{!show}}' catchtouchmove='catm'>
   <view class='head'>{{chord}}</view>
   <view class='body'>
     <block wx:for='{{items}}'>
-      <view class='line {{wxs.isLastLine(index)?"row_reverse":""}}'>
-        <block wx:for='{{item.item}}' wx:for-item='btnItem' wx:for-index='no'>
-          <view class='btn_item {{wxs.isGreen(btnItem)?"green":""}} {{wxs.isBig(btnItem)?"big_btn":""}}' hover-class='onTouch' data-position='{{index}}-{{no}}' catchtap='onClickBtn'>
-            <text>{{btnItem}}</text>
-          </view>
-        </block>
-      </view>
+      <view class='border'></view>
+      <scroll-view scroll-x>
+        <view class='line'>
+          <block wx:for='{{item.item}}' wx:for-item='btnItem' wx:for-index='no'>
+            <view class='btn_item' hover-class='onTouch' data-position='{{index}}-{{no}}' catchtap='onClickBtn'>
+              <text>{{btnItem}}</text>
+            </view>
+          </block>
+        </view>
+      </scroll-view>
     </block>
   </view>
-  <!--
-  <view class='bottom'>
-    <scroll-view scroll-x>
-      <view class="scroll-x">
-        <view wx:for='{{recentItems}}'>
-          <view class='recent_item center'>
-            <text>{{item}}</text>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
-  </view> -->
+  <view class='border'></view>
+  <view class='btns'>
+    <button type='primary' size='mini' catchtap='ok'>确定</button>
+    <button size='mini' catchtap='del'>删除</button>
+  </view>
 </view>
