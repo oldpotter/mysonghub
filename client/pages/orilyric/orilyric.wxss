@@ -1,4 +1,9 @@
 /* pages/edit_v2/tab.wxss */
+.bg{
+	margin: 30rpx;
+	margin-bottom: 150rpx;
+}
+
 .edit{
 	position: fixed;
 	bottom: 50rpx;

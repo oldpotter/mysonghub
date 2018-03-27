@@ -1,0 +1,10 @@
+<!--components/kllist/kllist.wxml-->
+<view class='bg'>
+  <slot></slot>
+  <view class='center' wx:if='{{source.length == 0}}'>
+    ----没有数据----
+  </view>
+  <view class='center' wx:if='{{isLoading}}'>
+    ----正在加载----
+  </view>
+</view>

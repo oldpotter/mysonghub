@@ -1,0 +1,6 @@
+/* pages/test/list.wxss */
+.bg{
+	 background: aqua; 
+	/* width: 100%;
+	height: 600rpx; */
+}

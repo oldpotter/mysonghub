@@ -1,5 +1,6 @@
 {
 	"usingComponents":{
-		"klbuttons":"../../components/klbuttons/klbuttons"
+		"klbuttons":"../../components/klbuttons/klbuttons",
+		"list":"./list"
 	}
 }

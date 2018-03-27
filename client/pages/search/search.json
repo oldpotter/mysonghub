@@ -1,1 +1,6 @@
-{}
+{
+	"usingComponents":{
+		"kl-search":"../../components/klsearch/klsearch",
+		"kl-list":"../../components/kllist/kllist"
+	}
+}

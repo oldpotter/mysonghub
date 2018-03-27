@@ -1,10 +1,9 @@
 /* pages/tab1/tab1.wxss */
-.song{
-	border: 1rpx solid lightgray;
-}
 
-.search-bg{
-	width: 100%;
-	position: fixed;
-	bottom: 0;
+.search{
+	margin: 30rpx;
+}
+.cell{
+	border-top: 1rpx solid lightgray;
+	margin: 10rpx 30rpx;
 }

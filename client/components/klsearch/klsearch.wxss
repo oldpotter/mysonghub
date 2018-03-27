@@ -1,1 +1,14 @@
 /* components/klsearch/klsearch.wxss */
+
+.bg {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  border-radius: 20rpx;
+  border: 1rpx solid lightgray;
+}
+
+.img {
+  width: 50rpx;
+  height: 50rpx;
+}

@@ -1,5 +1,6 @@
 {
 	"usingComponents": {
-		"klinput": "../../components/klinput/klinput"
+		"kl-list": "../../components/kllist/kllist",
+		"klbuttons": "../../components/klbuttons/klbuttons"
 	}
 }

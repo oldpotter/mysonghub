@@ -1,6 +1,5 @@
 <!--pages/edit_v2/tab.wxml-->
-<view class='bg bg-padding'>
-    <text>{{oriLyric}}</text>
+<view class='bg'>
+  <text>{{oriLyric}}</text>
 </view>
-<image class='edit' src='../../resources/edit.png' 
-	bindtap='onClickEditLyricImg'></image>
+<klbuttons items='{{items}}' bind:ontap='edit' />

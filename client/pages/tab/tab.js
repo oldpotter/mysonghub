@@ -39,7 +39,8 @@ Page({
 				title: '帮助',
 				on: false,
 				src: '../../resources/tip.png',
-				srcOn: '../../resources/tip_on.png'
+				srcOn: '../../resources/tip_on.png',
+				autoOff: true
 			},
 		]
 	},
@@ -96,6 +97,7 @@ Page({
 			//提示
 			case 2: {
 				this.setData({ showInfo: !this.data.showInfo })
+				setTimeout(() => this.setData({ showInfo: !this.data.showInfo }), 3000)
 				break
 			}
 		}

@@ -1,24 +1,18 @@
 Page({
 	data:{
-		arr:[]
-	},
-	onReady(){
-		const arr = this.data.arr
-		for(let i=0;i<100;i++){
-			arr.push('yyyyyyyyyyyyyyyyyyyyy')
-		}
-		this.setData({arr})
-	},
-	blue(){
-		console.log('blue')
-	},
-	yellow() {
-		console.log('yellow')
-	},
-	red() {
-		console.log('red')
-	},
-	cs(){
-		console.log('cs')
+		items:[
+			{
+				name:'12312312',
+				des:'好似地方阿斯顿佛阿萨德佛爱上对方'
+			},
+			{
+				name: '12435345345',
+				des: 'asdfasdfasdfasfs'
+			},
+			{
+				name: '123129080989090312',
+				des: 'n,masdnfaljdlasodifaosdf'
+			},
+		]
 	}
 })

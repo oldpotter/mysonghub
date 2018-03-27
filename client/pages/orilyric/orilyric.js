@@ -5,7 +5,15 @@ Page({
 	songId: undefined,
 	songName: undefined,
 	data: {
-		oriLyric: undefined
+		oriLyric: undefined,
+		items: [
+			{
+				idx: 1,
+				title: '编辑',
+				on: false,
+				src: '../../resources/edit.png',
+			},
+		]
 	},
 
 	onLoad(options) {
@@ -49,7 +57,7 @@ Page({
 	},
 
 	//开始编辑歌词
-	onClickEditLyricImg() {
+	edit() {
 		if (!this.data.oriLyric) {
 			return
 		}

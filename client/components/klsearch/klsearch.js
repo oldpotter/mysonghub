@@ -1,23 +1,12 @@
-// components/klsearch/klsearch.js
 Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
-  /**
-   * 组件的初始数据
-   */
-  data: {
-
-  },
-
-  /**
-   * 组件的方法列表
-   */
-  methods: {
-
-  }
+	search: undefined,
+	methods: {
+		input(event) {
+			clearTimeout(this.search)
+			const value = event.detail.value
+			this.search = setTimeout(() => {
+				this.triggerEvent('klsearch', { value }, {})
+			}, 500)
+		}
+	}
 })

@@ -1,0 +1,5 @@
+<!--pages/test/list.wxml-->
+<view class='bg'>
+  <slot></slot>
+  
+</view>
