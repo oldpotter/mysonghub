@@ -1,5 +1,14 @@
 Component({
 	properties: {
+		/**
+		 * idx:Number 序号
+		 * title:String 名称
+		 * on:Boolean 是否开启
+		 * src:String 关闭图片 
+		 * srcOn:String 开启图片
+		 * autoOff:Boolean 是否自动关闭
+		 * disable:Boolean是否可用
+		 */
 		items: Array,
 		hidden: Boolean
 	},
@@ -13,14 +22,17 @@ Component({
 	methods: {
 		tap(event) {
 			const index = event.currentTarget.dataset.index
+			if (this.data.items[index].disable) {
+				return
+			}
 			const param = `items[${index}].on`
 			this.setData({
 				[param]: !this.data.items[index].on
 			})
 			if (this.data.items[index].autoOff && this.data.items[index].on) {
-				setTimeout(()=>this.setData({
-					[param]:false
-				}),1000)
+				setTimeout(() => this.setData({
+					[param]: false
+				}), 1000)
 			}
 			this.triggerEvent('ontap', { index }, {})
 		}

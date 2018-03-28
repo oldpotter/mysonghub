@@ -10,7 +10,7 @@
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "我的歌本|找歌词记谱子",
+    "navigationBarTitleText": "我的歌本",
     "navigationBarTextStyle": "black",
     "navigationStyle": "default"
   }

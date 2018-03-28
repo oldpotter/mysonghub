@@ -8,19 +8,13 @@ Page({
 	},
 
 	bindSearch(event){
-		wx.showLoading({
-			title: '正在搜索',
-			mask: true,
-			success: function(res) {},
-			fail: function(res) {},
-			complete: function(res) {},
-		})
+		wx.showNavigationBarLoading()
 		const _this = this
 		const value = event.detail.value
 		wx.request({
 			url: `${config.service.searchUrl}${value}`,
 			success: function (res) {
-				wx.hideLoading()
+			 	wx.hideNavigationBarLoading()
 				if (res.statusCode == 200) {
 					const json = JSON.parse(res.data.data.body)
 					if (json.code == 200) {

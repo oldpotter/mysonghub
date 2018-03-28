@@ -44,6 +44,24 @@ Page({
 			success: function (res) {
 				if (res.statusCode == 200) {
 					const obj = JSON.parse(res.data.data.body)
+					if (!obj.lrc) {
+						wx.showToast({
+							title: '没有歌词',
+							icon: '',
+							image: '../../resources/error.png',
+							duration: 2000,
+							mask: true,
+							success: function (res) { },
+							fail: function (res) { },
+							complete: function (res) { },
+						})
+						const param = `items[0].disable`
+						_this.setData({
+							[param]: true
+						})
+						console.log(_this.data.items)
+						return
+					}
 					const oriLyric = obj.lrc.lyric
 						.replace(/\[[\d.:]+\]/g, '')
 					_this.setData({ oriLyric })
