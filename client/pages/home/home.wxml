@@ -1,7 +1,7 @@
 <!--pages/tab2/tab2.wxml-->
 <view class='list'>
 	<kl-list source='{{songs}}'>
-    <view wx:for='{{songs}}'>
+    <view wx:for='{{songs}}' wx:key='*this'>
       <view class='cell' data-index='{{index}}' bindtap='onClickSong'>
         <view>歌名：{{item.songName}}</view>
         <image hidden='{{!isEditing}}' class='close-img' src='../../resources/close.png' catchtap='onClickDelete' data-index='{{index}}'></image>

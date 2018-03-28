@@ -49,7 +49,11 @@ Page({
 		this.index = options.index || app.songs.length - 1
 		this.setData({
 			tab: app.songs[this.index].tab,
-			info: app.songs[this.index].info ? app.songs[this.index].info : undefined
+			info: app.songs[this.index].info ? app.songs[this.index].info : [
+				{title:'Key',value:''},
+				{title:'Play',value:''},
+				{title:'Capo',value:''},
+			]
 		})
 	},
 

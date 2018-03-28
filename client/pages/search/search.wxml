@@ -4,7 +4,7 @@
     <kl-search bind:klsearch='bindSearch' />
   </view>
   <kl-list source='{{songs}}'>
-    <view wx:for='{{songs}}'>
+    <view wx:for='{{songs}}' wx:key='*this'>
       <view class='cell' bindtap='onClickSong' data-index='{{index}}'>
         <view>歌名：{{item.name}}</view>
         <view>艺术家：{{item.artists[0].name}}</view>

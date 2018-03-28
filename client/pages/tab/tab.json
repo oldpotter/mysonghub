@@ -2,8 +2,8 @@
 	"usingComponents": {
 		"pad": "./components/pad",
 		"info": "./components/info",
-		"klbuttons": "../../components/klbuttons/klbuttons",
-		"klinfo": "../../components/klinfo/klinfo",
+		"kl-buttons": "../../components/klbuttons/klbuttons",
+		"kl-info": "../../components/klinfo/klinfo",
 		"scroll": "./components/scroll"
 	}
 }

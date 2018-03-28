@@ -12,3 +12,7 @@
   width: 50rpx;
   height: 50rpx;
 }
+
+.input{
+	width: 90%;
+}

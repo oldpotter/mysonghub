@@ -1,22 +1,15 @@
 Component({
 	properties: {
 		isEditing: Boolean,
-		info: {
-			type: Array,
-			value: [
-				{
-					title: 'Key',
-					value: ''
-				},
-				{
-					title: 'Play',
-					value: ''
-				},
-				{
-					title: 'Capo',
-					value: ''
-				},]
-		}
+		/**
+		 * title:String
+		 * value:String
+		 */
+		info:Array,
+	},
+
+	ready(){
+		console.log(`sssss:${this.data.info}`)
 	},
 
 	methods: {
