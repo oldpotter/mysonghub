@@ -1,8 +1,0 @@
-<list source='{{items}}'>
-  <block wx:for='{{items}}'>
-    <view>
-      <view>name:{{item.name}}</view>
-      <view>name:{{item.desc}}</view>
-    </view>
-  </block>
-</list>

@@ -42,6 +42,14 @@ Page({
 				srcOn: '../../resources/tip_on.png',
 				autoOff: true
 			},
+			{
+				idx: 3,
+				title: '上传',
+				on: false,
+				src: '../../resources/upload.png',
+				srcOn: '../../resources/upload_on.png',
+				autoOff: true
+			},
 		]
 	},
 
@@ -102,6 +110,18 @@ Page({
 			case 2: {
 				this.setData({ showInfo: !this.data.showInfo })
 				setTimeout(() => this.setData({ showInfo: !this.data.showInfo }), 3000)
+				break
+			}
+			//上传
+			case 3:{
+				wx.showLoading({
+					title: '',
+					mask: true,
+					success: function(res) {},
+					fail: function(res) {},
+					complete: function(res) {},
+				})
+				
 				break
 			}
 		}

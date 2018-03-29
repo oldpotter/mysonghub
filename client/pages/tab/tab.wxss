@@ -10,6 +10,7 @@
 
 .row_item{
 	display: inline-block;
+	margin: 0 5rpx;
 }
 
 .row_item_editing{

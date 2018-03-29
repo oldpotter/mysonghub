@@ -82,7 +82,12 @@ Page({
 		let tab = this.data.oriLyric
 		tab = tab.split('\n')
 			.map(line => {
-				const arr = line.split('')
+				let arr = []
+				if (/[\u4e00-\u9fa5]+/.test(line)) {
+					arr = line.split('')
+				} else {
+					arr = line.split(/\b/)
+				}
 				for (let i = 0; i < 4; i++) {
 					arr.push('&nbsp;&nbsp;')
 					arr.splice(0, 0, '&nbsp;&nbsp;')
