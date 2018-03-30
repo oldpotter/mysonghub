@@ -1,7 +1,18 @@
+const config = require('../../config.js')
 Page({
 	onLoad(){
-		const str = 'You are a brick tied to me that'
-		const arr = str.split(/\s/)
-		console.log(arr)
+		wx.request({
+			url: `${config.service.registerUrl}`,
+			data: '',
+			header: {},
+			method: 'GET',
+			dataType: 'json',
+			responseType: 'text',
+			success: function(res) {
+				console.log(res)
+			},
+			fail: function(res) {},
+			complete: function(res) {},
+		})
 	}
 })
