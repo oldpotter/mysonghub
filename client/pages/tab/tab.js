@@ -3,7 +3,7 @@ Page({
 	scrollTop: 0,//页面滚动距离px
 	scrollTo: 0,//要滚到的距离
 	scrollInterval: undefined,
-
+	screenOn: false,//屏幕常亮
 	data: {
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
@@ -50,6 +50,13 @@ Page({
 				srcOn: '../../resources/upload_on.png',
 				autoOff: true
 			},
+			{
+				idx: 4,
+				title: '屏幕常亮',
+				on: false,
+				src: '../../resources/screen.png',
+				srcOn: '../../resources/screen_on.png',
+			},
 		]
 	},
 
@@ -58,9 +65,9 @@ Page({
 		this.setData({
 			tab: app.songs[this.index].tab,
 			info: app.songs[this.index].info ? app.songs[this.index].info : [
-				{title:'Key',value:''},
-				{title:'Play',value:''},
-				{title:'Capo',value:''},
+				{ title: 'Key', value: '' },
+				{ title: 'Play', value: '' },
+				{ title: 'Capo', value: '' },
 			]
 		})
 	},
@@ -113,15 +120,26 @@ Page({
 				break
 			}
 			//上传
-			case 3:{
+			case 3: {
 				wx.showLoading({
 					title: '',
 					mask: true,
-					success: function(res) {},
-					fail: function(res) {},
-					complete: function(res) {},
+					success: function (res) { },
+					fail: function (res) { },
+					complete: function (res) { },
 				})
-				
+
+				break
+			}
+			//常亮
+			case 4: {
+				this.screenOn = !this.screenOn
+				wx.setKeepScreenOn({
+					keepScreenOn: this.screenOn,
+					success: function (res) { },
+					fail: function (res) { },
+					complete: function (res) { },
+				})
 				break
 			}
 		}
