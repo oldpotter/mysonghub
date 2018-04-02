@@ -1,4 +1,6 @@
 const app = getApp()
+const config = require('../../config.js')
+const promise = require('../../utils/promise.js')
 Page({
 	scrollTop: 0,//页面滚动距离px
 	scrollTo: 0,//要滚到的距离
@@ -128,7 +130,35 @@ Page({
 					fail: function (res) { },
 					complete: function (res) { },
 				})
-
+				promise.getUUID()
+					.then(uuid => {
+						wx.hideLoading()
+						wx.request({
+							url: `${config.service.uploadTabUrl}`,
+							data: { uuid, tab: this.data.tab },
+							header: {},
+							method: 'POST',
+							dataType: 'json',
+							responseType: 'text',
+							success: function (res) {
+								if(res.data.code = 1985){
+									wx.showToast({
+										title: '上传成功',
+										icon: 'success',
+										image: '',
+										duration: 2000,
+										mask: true,
+										success: function(res) {},
+										fail: function(res) {},
+										complete: function(res) {},
+									})
+								}
+							},
+							fail: function (res) { },
+							complete: function (res) { },
+						})
+					})
+					.catch(err => console.error(err))
 				break
 			}
 			//常亮

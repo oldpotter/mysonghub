@@ -36,4 +36,5 @@ router.post('/message', controllers.message.post)
 router.get('/search', controllers.search)
 router.get('/lyric', controllers.lyric)
 router.get('/register', controllers.register)
+router.post('/uploadtab', controllers.tab.upload)
 module.exports = router
