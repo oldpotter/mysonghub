@@ -1,0 +1,5 @@
+<!--pages/tab/components/font.wxml-->
+<view class='bg'>
+	<view catchtap='tap' data-value='+'>+</view>
+	<view catchtap='tap' data-value='-'>-</view>
+</view>

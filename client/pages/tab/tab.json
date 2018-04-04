@@ -4,6 +4,7 @@
 		"info": "./components/info",
 		"kl-buttons": "../../components/klbuttons/klbuttons",
 		"kl-info": "../../components/klinfo/klinfo",
-		"scroll": "./components/scroll"
+		"scroll": "./components/scroll",
+		"font": "./components/font"
 	}
 }

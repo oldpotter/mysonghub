@@ -16,7 +16,9 @@ Page({
 	scrollInterval: undefined,
 	screenOn: false,//屏幕常亮
 	index: undefined,//app.songs[index]
+
 	data: {
+		fontSize: 5,
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
@@ -64,10 +66,17 @@ Page({
 			},
 			{
 				idx: 4,
-				title: '屏幕常亮',
+				title: '屏幕',
 				on: false,
 				src: '../../resources/screen.png',
 				srcOn: '../../resources/screen_on.png',
+			},
+			{
+				idx: 5,
+				title: '字体',
+				on: false,
+				src: '../../resources/font.png',
+				srcOn: '../../resources/font_on.png',
 			},
 		]
 	},
@@ -100,6 +109,17 @@ Page({
 		// 	console.log('onPageScroll-auto stop')
 		// 	clearInterval(this.scrollInterval)
 		// }
+	},
+
+	//字体大小
+	bindFont(event) {
+		let fontSize
+		if (event.detail.value == '+') {
+			fontSize = this.data.fontSize == 9 ? 9 : this.data.fontSize + 1
+		} else {
+			fontSize = this.data.fontSize == 1 ? 1 : this.data.fontSize - 1
+		}
+		this.setData({ fontSize })
 	},
 
 	//点击功能按钮
@@ -182,6 +202,10 @@ Page({
 					complete: function (res) { },
 				})
 				break
+			}
+			//字体
+			case 5: {
+
 			}
 		}
 	},

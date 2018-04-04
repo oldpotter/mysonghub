@@ -1,25 +1,34 @@
-.list{
-	margin: 30rpx 20rpx;
-	margin-bottom: 140rpx;
-}
-.cell{
-	border: 1rpx solid lightgray;
-	padding: 50rpx 30rpx;
-	margin:30rpx;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-.close-img{
-	width: 50rpx;
-	height: 50rpx;
+.list {
+  margin: 30rpx 20rpx;
+  margin-bottom: 140rpx;
 }
 
+.cell {
+  border: 1rpx solid lightgray;
+  padding: 50rpx 30rpx;
+  margin: 30rpx;
+}
 
-.search-img{
-	width: 100rpx;
-	height: 100rpx;
-	position: fixed;
-	right: 30rpx;
-	bottom: 50rpx;
+.inline_block{
+	display: inline-block;
+}
+
+.artist {
+	margin-left: 20rpx;
+  color: darkgray;
+  font-size: 14px;
+}
+
+.close-img {
+  width: 50rpx;
+  height: 50rpx;
+	float: right;
+}
+
+.search-img {
+  width: 100rpx;
+  height: 100rpx;
+  position: fixed;
+  right: 30rpx;
+  bottom: 50rpx;
 }

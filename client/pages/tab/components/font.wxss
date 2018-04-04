@@ -1,0 +1,14 @@
+/* pages/tab/components/font.wxss */
+.bg{
+	position: fixed;
+	bottom: 150rpx;
+	right: 30rpx;
+	background: lightgray;
+	height: 200rpx;
+	width: 75rpx;
+	border-radius: 20rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+}

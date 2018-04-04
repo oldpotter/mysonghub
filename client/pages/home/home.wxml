@@ -1,14 +1,14 @@
 <!--pages/tab2/tab2.wxml-->
 <view class='list'>
-	<kl-list source='{{songs}}'>
+  <kl-list source='{{songs}}'>
     <view wx:for='{{songs}}' wx:key='*this'>
       <view class='cell' data-index='{{index}}' bindtap='onClickSong'>
-        <view>歌名：{{item.songName}}</view>
+        <view class='inline_block'>{{item.songName}}</view>
+        <view class='artist inline_block'>{{item.artistName}}</view>
         <image hidden='{{!isEditing}}' class='close-img' src='../../resources/close.png' catchtap='onClickDelete' data-index='{{index}}'></image>
       </view>
     </view>
   </kl-list>
 </view>
-
 
 <klbuttons items='{{items}}' bind:ontap='onClickKLButtons' />

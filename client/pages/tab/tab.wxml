@@ -8,10 +8,11 @@
 <kl-buttons items='{{items}}' hidden='{{showButtons}}' bind:ontap='onClickKLButtons' />
 
 <view class='bg'>
-  <info info='{{info}}' isEditing='{{isEditing}}' bind:info='bindInfo'/>
+  <font bind:font='bindFont' />
+  <info info='{{info}}' isEditing='{{isEditing}}' bind:info='bindInfo' />
   <view class='tab' wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
-    <block wx:for='{{lineItem}}'  wx:for-item='rowItem' wx:for-index='rowIdx'>
-      <view class='row_item {{isEditing?"row_item_editing":""}}' hover-class='{{isEditing?"on-hovor":""}}' catchtap='{{isEditing?"onClickRowItem":""}}' catchlongpress='{{isEditing?"onLongPressRowItem":""}}' data-position='{{lineIdx}}-{{rowIdx}}'>
+    <block wx:for='{{lineItem}}' wx:for-item='rowItem' wx:for-index='rowIdx'>
+      <view class='row_item {{isEditing?"row_item_editing":""}} font_{{fontSize}}' hover-class='{{isEditing?"on-hovor":""}}' catchtap='{{isEditing?"onClickRowItem":""}}' catchlongpress='{{isEditing?"onLongPressRowItem":""}}' data-position='{{lineIdx}}-{{rowIdx}}'>
         <view>{{rowItem.chord}}</view>
         <view>
           <text decode='true'>{{rowItem.word}}</text>
