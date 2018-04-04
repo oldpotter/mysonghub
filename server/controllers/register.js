@@ -17,17 +17,39 @@ const knex = require('knex')({
 module.exports = async (ctx, next) => {
 	const code = ctx.request.query.code
 	let uuid = uuidv1()
+	let sessionkey
+	let openid
 	await request(`https://api.weixin.qq.com/sns/jscode2session?appid=${config.appId}&secret=${config.appSecret}&js_code=${code}&grant_type=authorization_code`)
 		.then(res => {
+			res = JSON.parse(res)
+			openid = res.openid
+			sessionkey = res.session_key
 			return knex('user')
-				.insert({ uuid: uuid, value: res })
+				.where('openid', openid)
 		})
 		.then(res => {
+			if (res.length == 1) {
+				//已存在该用户
+				ctx.state.code = 1985
+				ctx.state.data = res[0].uuid
+				throw { reason: 'user exist' }
+			} else {
+				//不存在该用户
+				return knex('user')
+					.insert({ uuid: uuid, sessionkey: sessionkey, openid: openid })
+			}
+		})
+		.then(() => {
 			ctx.state.code = 1985
 			ctx.state.data = uuid
 		})
 		.catch(err => {
-			ctx.state.code = -1000
-			ctx.state.data = err
+			if (err.reason == 'user exist') {
+
+			} else {
+				ctx.state.code = -1000
+				console.log('koa error:', err)
+			}
 		})
+
 }

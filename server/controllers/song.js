@@ -8,13 +8,13 @@ const knex = require('knex')({
 		database: 'songhub'
 	}
 })
+
 async function upload(ctx) {
-	let { uuid, tab } = ctx.request.body
-	tab = JSON.stringify(tab)
-	await knex('tab')
-		.insert({ uuid, value: tab })
+	let { uuid, song } = ctx.request.body
+	await knex.raw("INSERT INTO `song`(`songId`, `uuid`, `song`) VALUES (?,?,?) ON DUPLICATE KEY UPDATE `song`=?", [song.songId, uuid, JSON.stringify(song), JSON.stringify(song)])
 		.then(res => {
-			ctx.state.code = 1985
+			ctx.state.code = 1200
+			// ctx.state.data =
 		})
 }
 module.exports = {

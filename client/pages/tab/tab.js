@@ -2,10 +2,20 @@ const app = getApp()
 const config = require('../../config.js')
 const promise = require('../../utils/promise.js')
 Page({
+	/**
+	 * song:{
+	 * 	songName:
+	 * 	artistName:
+	 * 	info:
+	 * 	tab:
+	 * 	songId:
+	 * }
+	 */
 	scrollTop: 0,//页面滚动距离px
 	scrollTo: 0,//要滚到的距离
 	scrollInterval: undefined,
 	screenOn: false,//屏幕常亮
+	index: undefined,//app.songs[index]
 	data: {
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
@@ -75,8 +85,6 @@ Page({
 	},
 
 	onUnload() {
-		app.songs[this.index].tab = this.data.tab
-		app.songs[this.index].info = this.data.info
 		wx.setStorage({
 			key: 'songs',
 			data: app.songs,
@@ -123,6 +131,7 @@ Page({
 			}
 			//上传
 			case 3: {
+				const _this = this
 				wx.showLoading({
 					title: '',
 					mask: true,
@@ -132,25 +141,27 @@ Page({
 				})
 				promise.getUUID()
 					.then(uuid => {
-						wx.hideLoading()
 						wx.request({
-							url: `${config.service.uploadTabUrl}`,
-							data: { uuid, tab: this.data.tab },
+							url: `${config.service.uploadSongUrl}`,
+							data: {
+								uuid, song: app.songs[this.index]
+							},
 							header: {},
 							method: 'POST',
 							dataType: 'json',
 							responseType: 'text',
 							success: function (res) {
-								if(res.data.code = 1985){
+								if (res.data.code = 1985) {
+									console.log(res)
 									wx.showToast({
 										title: '上传成功',
 										icon: 'success',
 										image: '',
 										duration: 2000,
 										mask: true,
-										success: function(res) {},
-										fail: function(res) {},
-										complete: function(res) {},
+										success: function (res) { },
+										fail: function (res) { },
+										complete: function (res) { },
 									})
 								}
 							},

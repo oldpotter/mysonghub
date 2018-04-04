@@ -20,6 +20,7 @@ Page({
 		const _this = this
 		this.songId = options.songId
 		this.songName = options.songName
+		this.artistName = options.artistName
 		if (!this.songId) {
 			wx.showToast({
 				title: 'songId不存在',
@@ -105,6 +106,7 @@ Page({
 		app.songs.push({
 			songId: this.songId,
 			songName: this.songName,
+			artistName: this.artistName,
 			tab: tab
 		})
 		wx.setStorage({
@@ -112,7 +114,7 @@ Page({
 			data: app.songs,
 		})
 		wx.redirectTo({
-			url: '../tab/tab',
+			url: `../tab/tab`,
 			success: function (res) { },
 			fail: function (res) { },
 			complete: function (res) { },

@@ -37,6 +37,7 @@ function getUUID() {
 						responseType: 'text',
 						success: function (res) {
 							if (res.data.code != 1985) {
+								console.error(res)
 								reject()
 								return
 							}

@@ -9,7 +9,6 @@ Component({
 	},
 
 	ready(){
-		console.log(`sssss:${this.data.info}`)
 	},
 
 	methods: {

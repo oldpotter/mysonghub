@@ -34,9 +34,9 @@ Page({
 		const index = event.currentTarget.dataset.index
 		const songId = this.data.songs[index].id
 		const songName = this.data.songs[index].name
-		// console.log(this.data.songs[index].id)
+		const artistName = this.data.songs[index].artists[0].name
 		wx.navigateTo({
-			url: `../orilyric/orilyric?songId=${songId}&songName=${songName}`,
+			url: `../orilyric/orilyric?songId=${songId}&songName=${songName}&artistName=${artistName}`,
 			success: function (res) { },
 			fail: function (res) { },
 			complete: function (res) { },
