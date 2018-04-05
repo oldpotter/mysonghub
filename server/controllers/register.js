@@ -6,7 +6,7 @@ const knex = require('knex')({
 	connection: {
 		host: config.mysql.host,
 		user: config.mysql.user,
-		password: 'zhengyinyu803',
+		password: config.mysql.pass,
 		database: 'songhub'
 	}
 })
