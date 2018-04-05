@@ -19,6 +19,15 @@ Page({
 				srcOn: '../../resources/search_on.png',
 				autoOff: true
 			},
+			{
+				idx: 2,
+				title: '提意见',
+				on: false,
+				src: '../../resources/contact.png',
+				// srcOn: '../../resources/cont.png',
+				autoOff: true,
+				contact:true,
+			},
 		]
 	},
 

@@ -1,5 +1,18 @@
 /* components/klbuttons/klbuttons.wxss */
 
+.contact {
+  position: absolute;
+  left: 1rpx;
+  top: 1rpx;
+	right: 1rpx;
+	bottom: 1rpx;
+	opacity: 0;
+	/* z-index: -1; */
+  /* width: 30rpx;
+  height: 30rpx; */
+   /* background: lightgreen;  */
+}
+
 .touch {
   background: lightgray;
 }
@@ -29,7 +42,7 @@
 }
 
 .item {
-  /* height: 110rpx; */
+  position: relative;
   margin: 10rpx 20rpx;
   border: 1rpx solid lightgray;
   font-size: 11px;
