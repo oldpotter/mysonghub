@@ -18,11 +18,12 @@ Page({
 	index: undefined,//app.songs[index]
 
 	data: {
-		fontSize: 5,
+		fontSize: 1,
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
 		showInfo: false,//显示信息
+		showFont:false,
 		tips: `编辑模式下：
 		1、长按删除一行。
 		2、点击单字添加和弦。`,//帮助
@@ -205,7 +206,8 @@ Page({
 			}
 			//字体
 			case 5: {
-
+				this.setData({showFont:!this.data.showFont})
+				break
 			}
 		}
 	},

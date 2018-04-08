@@ -8,7 +8,7 @@
 <kl-buttons items='{{items}}' hidden='{{showButtons}}' bind:ontap='onClickKLButtons' />
 
 <view class='bg'>
-  <font bind:font='bindFont' />
+  <font bind:font='bindFont' hidden='{{!showFont}}'/>
   <info info='{{info}}' isEditing='{{isEditing}}' bind:info='bindInfo' />
   <view class='tab' wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
     <block wx:for='{{lineItem}}' wx:for-item='rowItem' wx:for-index='rowIdx'>

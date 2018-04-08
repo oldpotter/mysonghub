@@ -1,5 +1,5 @@
 <!--pages/tab/components/font.wxml-->
-<view class='bg'>
+<view class='bg' hidden='{{hidden}}'>
 	<view class='btn' hover-class='touch' catchtap='tap' data-value='+'>+</view>
 	<view class='btn' hover-class='touch' catchtap='tap' data-value='-'>-</view>
 </view>
