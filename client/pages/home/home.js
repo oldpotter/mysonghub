@@ -40,7 +40,7 @@ Page({
 				this.setData({ songs: res.data.data })
 				// console.log(this.data.songs)
 			})
-			.catch()
+			.catch(err=>console.error('error:',err))
 			.finally(() => wx.hideLoading())
 	},
 
