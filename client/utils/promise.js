@@ -1,4 +1,5 @@
 const config = require('../config.js')
+
 /**
  * 网络请求
  */
@@ -20,6 +21,7 @@ function pRequest(url, data, method = 'GET', header = {}, dataType = 'json') {
 	})
 }
 
+//获取uuid
 function getUUID() {
 	return new Promise((resolve, reject) => {
 		let uuid = wx.getStorageSync('uuid')
@@ -44,7 +46,9 @@ function getUUID() {
 							wx.setStorageSync('uuid', res.data.data)
 							resolve(res.data.data)
 						},
-						fail: function (res) { },
+						fail: function (res) {
+							console.error(res)
+						},
 						complete: function (res) { },
 					})
 				},

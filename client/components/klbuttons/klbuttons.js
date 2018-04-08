@@ -34,7 +34,7 @@ Component({
 					[param]: false
 				}), 1000)
 			}
-			this.triggerEvent('ontap', { index }, {})
+			this.triggerEvent('ontap', { idx:this.data.items[index].idx }, {})
 		}
 	}
 })

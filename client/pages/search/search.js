@@ -24,6 +24,7 @@ Page({
 			},
 			fail: function (res) {
 				console.error(res)
+				wx.hideNavigationBarLoading()
 			},
 			complete: function (res) { },
 		})

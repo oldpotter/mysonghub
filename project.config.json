@@ -33,9 +33,9 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "歌词",
-					"pathName": "pages/orilyric/orilyric",
-					"query": "songId=5244895"
+					"name": "tab",
+					"pathName": "pages/tab/tab",
+					"query": "songId=521045900"
 				},
 				{
 					"id": -1,

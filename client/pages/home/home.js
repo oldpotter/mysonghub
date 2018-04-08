@@ -1,16 +1,10 @@
 const app = getApp()
+const promise = require('../../utils/promise.js')
+const config = require('../../config.js')
 Page({
 	data: {
-		isEditing: false,
 		songs: undefined,
 		items: [
-			{
-				idx: 1,
-				title: '编辑',
-				on: false,
-				src: '../../resources/edit.png',
-				srcOn: '../../resources/edit_on.png'
-			},
 			{
 				idx: 1,
 				title: '搜歌词',
@@ -26,35 +20,48 @@ Page({
 				src: '../../resources/contact.png',
 				// srcOn: '../../resources/cont.png',
 				autoOff: true,
-				contact:true,
+				contact: true,
 			},
 		]
 	},
 
-	onShow() {
-		this.setData({ songs: app.songs })
+	onLoad() {
+		wx.showLoading({
+			title: '',
+			mask: true,
+			success: function (res) { },
+			fail: function (res) { },
+			complete: function (res) { },
+		})
+		promise.getUUID()
+			.then(uuid => promise.pRequest(`${config.service.getMySongsUrl}?uuid=${uuid}`))
+			.then(res => {
+				if (res.data.code != 1985) throw {}
+				this.setData({ songs: res.data.data })
+				// console.log(this.data.songs)
+			})
+			.catch()
+			.finally(() => wx.hideLoading())
 	},
 
 	onClickSong(event) {
-		// console.log(event)
-		const index = event.currentTarget.dataset.index
+		const songId = event.currentTarget.dataset.songId
 		wx.navigateTo({
-			url: `../tab/tab?index=${index}&songId=${app.songs[index].songId}`,
+			url: `../tab/tab?songId=${songId}`,
 			success: function (res) { },
 			fail: function (res) { },
 			complete: function (res) { },
 		})
 	},
 
-
 	onClickKLButtons(event) {
-		const index = event.detail.index
-		switch (index) {
-			//编辑
-			case 0: {
-				this.setData({ isEditing: !this.data.isEditing })
-				break
-			}
+		const idx = event.detail.idx
+		switch (idx) {
+			// //编辑
+			// case 0: {
+			// 	this.setData({ isEditing: !this.data.isEditing })
+			// 	break
+			// }
 			//搜歌词
 			case 1: {
 				wx.navigateTo({
@@ -68,12 +75,5 @@ Page({
 
 		}
 	},
-	onClickDelete(event) {
-		const index = event.currentTarget.dataset.index
-		const songs = app.songs
-		songs.splice(index, 1)
-		this.setData({ songs })
-		app.songs = songs
-		wx.setStorageSync('songs', songs)
-	},
+
 })

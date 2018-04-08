@@ -1,6 +1,7 @@
 const config = require('../../config.js')
 const util = require('../../utils/util.js')
 const app = getApp()
+const promise = require('../../utils/promise.js')
 Page({
 	songId: undefined,
 	songName: undefined,
@@ -12,6 +13,7 @@ Page({
 				title: '编辑',
 				on: false,
 				src: '../../resources/edit.png',
+				srcOn: '../../resources/edit.png',
 			},
 		]
 	},
@@ -103,21 +105,42 @@ Page({
 				})
 			})
 
-		app.songs.push({
-			songId: this.songId,
-			songName: this.songName,
-			artistName: this.artistName,
-			tab: tab
-		})
-		wx.setStorage({
-			key: 'songs',
-			data: app.songs,
-		})
-		wx.redirectTo({
-			url: `../tab/tab`,
+		wx.showLoading({
+			title: '',
+			mask: true,
 			success: function (res) { },
 			fail: function (res) { },
 			complete: function (res) { },
 		})
+		promise.getUUID()
+			.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
+				uuid, song: {
+					songId: this.songId,
+					songName: this.songName,
+					artistName: this.artistName,
+					tab: tab,
+					info: [
+						{ title: 'Key', value: '' },
+						{ title: 'Play', value: '' },
+						{ title: 'Capo', value: '' },
+					]
+				}
+			}, 'POST'))
+			.then(res => {
+				console.log(res)
+				if (res.data.code != 1200) {
+					throw {}
+				}
+				wx.navigateTo({
+					url: `../tab/tab?songId=${this.songId}`,
+					success: function (res) { },
+					fail: function (res) { },
+					complete: function (res) { },
+				})
+			})
+			.catch(err => console.error(`error:${err},`))
+			.finally(() => wx.hideLoading())
+
+
 	},
 })

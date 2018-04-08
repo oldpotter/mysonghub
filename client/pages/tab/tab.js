@@ -15,7 +15,17 @@ Page({
 	scrollTo: 0,//要滚到的距离
 	scrollInterval: undefined,
 	screenOn: false,//屏幕常亮
-	index: undefined,//app.songs[index]
+	songId: undefined,
+	/**
+	 * artistName
+	 * song:
+	 * 		tab
+	 * 		info
+	 * songId
+	 * songName
+	 * uuid
+	 */
+	item: undefined,
 
 	data: {
 		fontSize: 1,
@@ -23,7 +33,7 @@ Page({
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
 		showInfo: false,//显示信息
-		showFont:false,
+		showFont: false,
 		tips: `编辑模式下：
 		1、长按删除一行。
 		2、点击单字添加和弦。`,//帮助
@@ -42,7 +52,7 @@ Page({
 				srcOn: '../../resources/run_on.png'
 			},
 			{
-				idx: 1,
+				idx: 2,
 				title: '编辑',
 				on: false,
 				src: '../../resources/edit.png',
@@ -50,7 +60,7 @@ Page({
 
 			},
 			{
-				idx: 2,
+				idx: 3,
 				title: '帮助',
 				on: false,
 				src: '../../resources/tip.png',
@@ -58,7 +68,7 @@ Page({
 				autoOff: true
 			},
 			{
-				idx: 3,
+				idx: 4,
 				title: '上传',
 				on: false,
 				src: '../../resources/upload.png',
@@ -66,14 +76,14 @@ Page({
 				autoOff: true
 			},
 			{
-				idx: 4,
+				idx: 5,
 				title: '屏幕',
 				on: false,
 				src: '../../resources/screen.png',
 				srcOn: '../../resources/screen_on.png',
 			},
 			{
-				idx: 5,
+				idx: 6,
 				title: '字体',
 				on: false,
 				src: '../../resources/font.png',
@@ -83,26 +93,28 @@ Page({
 	},
 
 	onLoad(options) {
-		this.index = options.index || app.songs.length - 1
-		this.setData({
-			tab: app.songs[this.index].tab,
-			info: app.songs[this.index].info ? app.songs[this.index].info : [
-				{ title: 'Key', value: '' },
-				{ title: 'Play', value: '' },
-				{ title: 'Capo', value: '' },
-			]
-		})
-	},
-
-	onUnload() {
-		wx.setStorage({
-			key: 'songs',
-			data: app.songs,
+		this.songId = options.songId
+		wx.showLoading({
+			title: '',
+			mask: true,
 			success: function (res) { },
 			fail: function (res) { },
 			complete: function (res) { },
 		})
+		promise.pRequest(`${config.service.getSongUrl}?songId=${this.songId}`)
+			.then(res => {
+				if (res.data.code != 1985) throw {}
+				this.item = res.data.data
+				const song = JSON.parse(this.item.song)
+				this.setData({
+					tab: song.tab,
+					info: song.info
+				})
+			})
+			.catch()
+			.finally(() => wx.hideLoading())
 	},
+
 
 	onPageScroll(event) {
 		this.scrollTop = event.scrollTop
@@ -125,10 +137,10 @@ Page({
 
 	//点击功能按钮
 	onClickKLButtons(event) {
-		const index = event.detail.index
-		switch (index) {
+		const idx = event.detail.idx
+		switch (idx) {
 			//滚屏
-			case 0: {
+			case 1: {
 				const showScrollPad = !this.data.showScrollPad
 				this.setData({ showScrollPad })
 				if (!showScrollPad) {
@@ -137,7 +149,7 @@ Page({
 				break
 			}
 			//编辑
-			case 1: {
+			case 2: {
 				this.setData({ isEditing: !this.data.isEditing })
 				if (!this.data.isEditing) {
 					this.setData({ showPad: false })
@@ -145,13 +157,13 @@ Page({
 				break
 			}
 			//提示
-			case 2: {
+			case 3: {
 				this.setData({ showInfo: !this.data.showInfo })
 				setTimeout(() => this.setData({ showInfo: !this.data.showInfo }), 3000)
 				break
 			}
 			//上传
-			case 3: {
+			case 4: {
 				const _this = this
 				wx.showLoading({
 					title: '',
@@ -161,40 +173,79 @@ Page({
 					complete: function (res) { },
 				})
 				promise.getUUID()
-					.then(uuid => {
-						wx.request({
-							url: `${config.service.uploadSongUrl}`,
-							data: {
-								uuid, song: app.songs[this.index]
-							},
-							header: {},
-							method: 'POST',
-							dataType: 'json',
-							responseType: 'text',
-							success: function (res) {
-								if (res.data.code = 1985) {
-									console.log(res)
-									wx.showToast({
-										title: '上传成功',
-										icon: 'success',
-										image: '',
-										duration: 2000,
-										mask: true,
-										success: function (res) { },
-										fail: function (res) { },
-										complete: function (res) { },
-									})
-								}
-							},
+					.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
+						uuid, song: {
+							tab: this.data.tab,
+							info: this.data.info,
+							songId: this.item.songId,
+							songName: this.item.songName,
+							artistName: this.item.artistName,
+						}
+					}, 'POST'))
+					.then(res => {
+						console.log(res)
+						if (res.data.code != 1985) throw ''
+						wx.showToast({
+							title: '上传成功',
+							icon: '',
+							image: '',
+							duration: 0,
+							mask: true,
+							success: function (res) { },
+							fail: function (res) { },
+							complete: function (res) { },
+						})
+					})
+				/*
+				wx.request({
+						url: config.service.uploadSongUrl,
+						data: {
+							uuid, song: {
+								tab: this.data.tab,
+								info: this.data.info,
+								songName: this.item.songName,
+								artistName: this.item.artistName,
+							}
+						},
+						header: {},
+						method: 'POST',
+						dataType: 'json',
+						responseType: 'text',
+						success: function(res) {
+							console.log(res)
+						},
+						fail: function(res) {},
+						complete: function(res) {},
+					})
+				promise.getUUID()
+					.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
+						uuid, song: {
+							tab: this.data.tab,
+							info: this.data.info,
+							songName: this.item.songName,
+							artistName: this.item.artistName,
+						}
+					}), 'POST')
+					.then(res => {
+						console.log(res)
+						if (res.data.code != 1985) throw {}
+						wx.showToast({
+							title: '上传成功',
+							icon: 'success',
+							image: '',
+							duration: 1500,
+							mask: true,
+							success: function (res) { },
 							fail: function (res) { },
 							complete: function (res) { },
 						})
 					})
 					.catch(err => console.error(err))
+					*/
 				break
 			}
 			//常亮
-			case 4: {
+			case 5: {
 				this.screenOn = !this.screenOn
 				wx.setKeepScreenOn({
 					keepScreenOn: this.screenOn,
@@ -205,8 +256,8 @@ Page({
 				break
 			}
 			//字体
-			case 5: {
-				this.setData({showFont:!this.data.showFont})
+			case 6: {
+				this.setData({ showFont: !this.data.showFont })
 				break
 			}
 		}
