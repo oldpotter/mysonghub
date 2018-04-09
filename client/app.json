@@ -12,6 +12,7 @@
     "navigationBarBackgroundColor": "#F6F6F6",
     "navigationBarTitleText": "我的歌本",
     "navigationBarTextStyle": "black",
-    "navigationStyle": "default"
+    "navigationStyle": "default",
+		"enablePullDownRefresh":true
   }
 }

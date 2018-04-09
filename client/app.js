@@ -7,7 +7,6 @@ App({
 				reason => P.resolve(callback()).then(() => { throw reason })
 			);
 		}
-		this.songs = wx.getStorageSync('songs') || []
 	},
-	songs: undefined,
+
 })

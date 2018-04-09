@@ -1,6 +1,7 @@
 const app = getApp()
 const promise = require('../../utils/promise.js')
 const config = require('../../config.js')
+const util = require('../../utils/util.js')
 Page({
 	data: {
 		songs: undefined,
@@ -24,15 +25,14 @@ Page({
 			},
 		]
 	},
+	onPullDownRefresh() {
+		this._refreshData()
+	},
+	onShow() {
+		this._refreshData()
+	},
 
-	onLoad() {
-		wx.showLoading({
-			title: '',
-			mask: true,
-			success: function (res) { },
-			fail: function (res) { },
-			complete: function (res) { },
-		})
+	_refreshData() {
 		promise.getUUID()
 			.then(uuid => promise.pRequest(`${config.service.getMySongsUrl}?uuid=${uuid}`))
 			.then(res => {
@@ -40,8 +40,13 @@ Page({
 				this.setData({ songs: res.data.data })
 				// console.log(this.data.songs)
 			})
-			.catch(err=>console.error('error:',err))
-			.finally(() => wx.hideLoading())
+			.catch(err => {
+				console.error('error:', err)
+				util.showError()
+			})
+			.finally(() => {
+				wx.stopPullDownRefresh()
+			})
 	},
 
 	onClickSong(event) {

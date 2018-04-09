@@ -1,33 +1,23 @@
 const config = require('../../config.js')
+const promise = require('../../utils/promise.js')
 Page({
 	data: {
 		songs: undefined
 	},
 
-	onReachBottom(){
-	},
 
-	bindSearch(event){
-		wx.showNavigationBarLoading()
+	bindSearch(event) {
 		const _this = this
 		const value = event.detail.value
-		wx.request({
-			url: `${config.service.searchUrl}${value}`,
-			success: function (res) {
-			 	wx.hideNavigationBarLoading()
+		promise.pRequest(`${config.service.searchUrl}${value}`)
+			.then(res => {
 				if (res.statusCode == 200) {
 					const json = JSON.parse(res.data.data.body)
 					if (json.code == 200) {
 						_this.setData({ songs: json.result.songs })
 					}
 				}
-			},
-			fail: function (res) {
-				console.error(res)
-				wx.hideNavigationBarLoading()
-			},
-			complete: function (res) { },
-		})
+			})
 	},
 
 

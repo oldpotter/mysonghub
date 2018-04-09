@@ -1,10 +1,14 @@
 const config = require('../config.js')
-
+const util = require('./util.js')
 /**
  * 网络请求
  */
 function pRequest(url, data, method = 'GET', header = {}, dataType = 'json') {
 	return new Promise((resolve, reject) => {
+		wx.showLoading({
+			title: '请稍后',
+		})
+		wx.showNavigationBarLoading()
 		wx.request({
 			url: url,
 			data: data,
@@ -15,8 +19,13 @@ function pRequest(url, data, method = 'GET', header = {}, dataType = 'json') {
 				resolve(res)
 			},
 			fail: function (res) {
+				util.showError()
 				reject(res)
 			},
+			complete() {
+				wx.hideLoading()
+				wx.hideNavigationBarLoading()
+			}
 		})
 	})
 }
@@ -28,6 +37,10 @@ function getUUID() {
 		if (uuid) {
 			resolve(uuid)
 		} else {
+			wx.showLoading({
+				title: '请稍后',
+			})
+			wx.showNavigationBarLoading()
 			wx.login({
 				success: function (res) {
 					wx.request({
@@ -49,7 +62,10 @@ function getUUID() {
 						fail: function (res) {
 							console.error(res)
 						},
-						complete: function (res) { },
+						complete: function (res) {
+							wx.hideLoading()
+							wx.hideNavigationBarLoading()
+						},
 					})
 				},
 				fail: function (res) { },

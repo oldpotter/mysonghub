@@ -1,6 +1,7 @@
 const app = getApp()
 const config = require('../../config.js')
 const promise = require('../../utils/promise.js')
+const util = require('../../utils/util.js')
 Page({
 	/**
 	 * song:{
@@ -89,18 +90,19 @@ Page({
 				src: '../../resources/font.png',
 				srcOn: '../../resources/font_on.png',
 			},
+			{
+				idx: 7,
+				title: '删除',
+				on: false,
+				src: '../../resources/delete.png',
+				srcOn: '../../resources/delete_on.png',
+				autoOff: true
+			},
 		]
 	},
 
 	onLoad(options) {
 		this.songId = options.songId
-		wx.showLoading({
-			title: '',
-			mask: true,
-			success: function (res) { },
-			fail: function (res) { },
-			complete: function (res) { },
-		})
 		promise.pRequest(`${config.service.getSongUrl}?songId=${this.songId}`)
 			.then(res => {
 				if (res.data.code != 1985) throw {}
@@ -111,8 +113,7 @@ Page({
 					info: song.info
 				})
 			})
-			.catch()
-			.finally(() => wx.hideLoading())
+			.catch(() => util.showError())
 	},
 
 
@@ -137,6 +138,7 @@ Page({
 
 	//点击功能按钮
 	onClickKLButtons(event) {
+		const _this = this
 		const idx = event.detail.idx
 		switch (idx) {
 			//滚屏
@@ -165,13 +167,6 @@ Page({
 			//上传
 			case 4: {
 				const _this = this
-				wx.showLoading({
-					title: '',
-					mask: true,
-					success: function (res) { },
-					fail: function (res) { },
-					complete: function (res) { },
-				})
 				promise.getUUID()
 					.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
 						uuid, song: {
@@ -183,65 +178,10 @@ Page({
 						}
 					}, 'POST'))
 					.then(res => {
-						console.log(res)
 						if (res.data.code != 1985) throw ''
-						wx.showToast({
-							title: '上传成功',
-							icon: '',
-							image: '',
-							duration: 0,
-							mask: true,
-							success: function (res) { },
-							fail: function (res) { },
-							complete: function (res) { },
-						})
+						util.showSuccess('上传成功')
 					})
-				/*
-				wx.request({
-						url: config.service.uploadSongUrl,
-						data: {
-							uuid, song: {
-								tab: this.data.tab,
-								info: this.data.info,
-								songName: this.item.songName,
-								artistName: this.item.artistName,
-							}
-						},
-						header: {},
-						method: 'POST',
-						dataType: 'json',
-						responseType: 'text',
-						success: function(res) {
-							console.log(res)
-						},
-						fail: function(res) {},
-						complete: function(res) {},
-					})
-				promise.getUUID()
-					.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
-						uuid, song: {
-							tab: this.data.tab,
-							info: this.data.info,
-							songName: this.item.songName,
-							artistName: this.item.artistName,
-						}
-					}), 'POST')
-					.then(res => {
-						console.log(res)
-						if (res.data.code != 1985) throw {}
-						wx.showToast({
-							title: '上传成功',
-							icon: 'success',
-							image: '',
-							duration: 1500,
-							mask: true,
-							success: function (res) { },
-							fail: function (res) { },
-							complete: function (res) { },
-						})
-					})
-					.catch(err => console.error(err))
-					*/
+
 				break
 			}
 			//常亮
@@ -258,6 +198,38 @@ Page({
 			//字体
 			case 6: {
 				this.setData({ showFont: !this.data.showFont })
+				break
+			}
+			//删除
+			case 7: {
+				wx.showModal({
+					title: '删除',
+					content: '将从云端删除该文件，是否确定？',
+					showCancel: true,
+					cancelText: '取消',
+					cancelColor: '',
+					confirmText: '删除',
+					confirmColor: '#ff0000',
+					success: function (res) {
+						if (res.confirm) {
+							util.showBusy()
+							promise.getUUID()
+								.then(uuid => promise.pRequest(config.service.deleteSongUrl, { uuid, songId: _this.item.songId }, 'POST'))
+								.then(res => {
+									if (res.data.code != 1985) throw ''
+									wx.navigateBack({
+										delta: 1,
+									})
+								})
+								.catch(() => util.showError())
+								.finally(() => {
+									wx.hideLoading()
+								})
+						}
+					},
+					fail: function (res) { },
+					complete: function (res) { },
+				})
 				break
 			}
 		}

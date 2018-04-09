@@ -49,8 +49,29 @@ async function getSong(ctx) {
 		.catch(err => console.error('错误', err))
 }
 
+async function deleteSong(ctx) {
+	const { uuid, songId } = ctx.request.body
+	await knex('song').where({ uuid, songId })
+		.del()
+		.then(count => {
+			if (count > 0) {
+				ctx.state = {
+					code: 1985,
+				}
+			} else {
+				throw {}
+			}
+		})
+		.catch(err => ctx.state = {
+			code: -100,
+			data: err
+		})
+
+}
+
 module.exports = {
 	upload,
 	getSong,
-	getMySongs
+	getMySongs,
+	deleteSong
 }

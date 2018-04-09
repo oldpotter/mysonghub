@@ -37,6 +37,7 @@ router.get('/search', controllers.search)
 router.get('/lyric', controllers.lyric)
 router.get('/register', controllers.register)
 router.post('/uploadsong', controllers.song.upload)
+router.post('/deletesong', controllers.song.deleteSong)
 router.get('/getsong', controllers.song.getSong)
 router.get('/getmysongs', controllers.song.getMySongs)
 module.exports = router

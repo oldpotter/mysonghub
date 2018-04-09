@@ -24,57 +24,26 @@ Page({
 		this.songName = options.songName
 		this.artistName = options.artistName
 		if (!this.songId) {
-			wx.showToast({
-				title: 'songId不存在',
-				icon: 'error',
-				image: '',
-				duration: 0,
-				mask: true,
-				success: function (res) { },
-				fail: function (res) { },
-				complete: function (res) { },
-			})
+			util.showError('songId不存在')
+			return
 		}
-		wx.showLoading({
-			title: '',
-			mask: true,
-			success: function (res) { },
-			fail: function (res) { },
-			complete: function (res) { },
-		})
-		wx.request({
-			url: `${config.service.lyricUrl}${this.songId}`,
-			success: function (res) {
+		promise.pRequest(`${config.service.lyricUrl}${this.songId}`)
+			.then(res => {
 				if (res.statusCode == 200) {
 					const obj = JSON.parse(res.data.data.body)
 					if (!obj.lrc) {
-						wx.showToast({
-							title: '没有歌词',
-							icon: '',
-							image: '../../resources/error.png',
-							duration: 2000,
-							mask: true,
-							success: function (res) { },
-							fail: function (res) { },
-							complete: function (res) { },
-						})
+						util.showError('没有歌词')
 						const param = `items[0].disable`
 						_this.setData({
 							[param]: true
 						})
-						console.log(_this.data.items)
 						return
 					}
 					const oriLyric = obj.lrc.lyric
 						.replace(/\[[\d.:]+\]/g, '')
 					_this.setData({ oriLyric })
-					wx.hideLoading()
 				}
-			},
-			fail: function (res) {
-				console.error(res)
-			},
-		})
+			})
 	},
 
 	//开始编辑歌词
@@ -105,13 +74,6 @@ Page({
 				})
 			})
 
-		wx.showLoading({
-			title: '',
-			mask: true,
-			success: function (res) { },
-			fail: function (res) { },
-			complete: function (res) { },
-		})
 		promise.getUUID()
 			.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
 				uuid, song: {
@@ -127,9 +89,8 @@ Page({
 				}
 			}, 'POST'))
 			.then(res => {
-				console.log(res)
-				if (res.data.code != 1200) {
-					throw {}
+				if (res.data.code != 1985) {
+					throw ''
 				}
 				wx.navigateTo({
 					url: `../tab/tab?songId=${this.songId}`,
@@ -138,9 +99,6 @@ Page({
 					complete: function (res) { },
 				})
 			})
-			.catch(err => console.error(`error:${err},`))
-			.finally(() => wx.hideLoading())
-
-
+			.catch(err => { util.showError })
 	},
 })
