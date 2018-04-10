@@ -23,6 +23,13 @@ Page({
 				autoOff: true,
 				contact: true,
 			},
+			{
+				idx: 3,
+				title: '公众号',
+				on: false,
+				src: '../../resources/gzh.png',
+				srcOn: '../../resources/gzh.png',
+			},
 		]
 	},
 	onPullDownRefresh() {
@@ -76,6 +83,15 @@ Page({
 					complete: function (res) { },
 				})
 				break
+			}
+			//公众号
+			case 3:{
+				wx.navigateTo({
+					url: '../info/info',
+					success: function(res) {},
+					fail: function(res) {},
+					complete: function(res) {},
+				})
 			}
 
 		}

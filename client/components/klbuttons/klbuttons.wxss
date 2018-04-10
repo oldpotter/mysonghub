@@ -1,6 +1,6 @@
 /* components/klbuttons/klbuttons.wxss */
 
-.contact {
+.function {
   position: absolute;
   left: 1rpx;
   top: 1rpx;

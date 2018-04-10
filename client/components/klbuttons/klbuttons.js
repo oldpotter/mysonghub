@@ -8,6 +8,8 @@ Component({
 		 * srcOn:String 开启图片
 		 * autoOff:Boolean 是否自动关闭
 		 * disable:Boolean是否可用
+		 * contact:Boolean是否是客服按钮
+		 * isShare:Boolean是否是分享按钮
 		 */
 		items: Array,
 		hidden: Boolean

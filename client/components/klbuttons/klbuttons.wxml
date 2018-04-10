@@ -8,7 +8,10 @@
             <image class='img' src='{{!item.on?item.src:item.srcOn}}'></image>
             <view class='title'>{{item.title}}</view>
             <block wx:if='{{item.contact}}'>
-              <button class='contact' open-type='contact'></button>
+              <button class='function' open-type='contact'></button>
+            </block>
+						<block wx:elif='{{item.isShare}}'>
+              <button class='function' open-type='share'></button>
             </block>
           </view>
         </block>

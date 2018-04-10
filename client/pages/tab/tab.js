@@ -61,6 +61,15 @@ Page({
 
 			},
 			{
+				idx: 999,
+				title: '分享',
+				on: false,
+				src: '../../resources/share.png',
+				srcOn: '../../resources/share_on.png',
+				autoOff: true,
+				isShare: true,
+			},
+			{
 				idx: 3,
 				title: '帮助',
 				on: false,
@@ -123,6 +132,15 @@ Page({
 		// 	console.log('onPageScroll-auto stop')
 		// 	clearInterval(this.scrollInterval)
 		// }
+	},
+
+	onShareAppMessage() {
+		return {
+			path:`/pages/tab/tab?songId=${this.item.songId}`,
+			fail(res){
+				util.showError('转发失败')
+			}
+		}
 	},
 
 	//字体大小

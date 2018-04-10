@@ -10,10 +10,10 @@ Page({
 		items: [
 			{
 				idx: 1,
-				title: '编辑',
+				title: '保存',
 				on: false,
-				src: '../../resources/edit.png',
-				srcOn: '../../resources/edit.png',
+				src: '../../resources/save.png',
+				srcOn: '../../resources/save.png',
 			},
 		]
 	},

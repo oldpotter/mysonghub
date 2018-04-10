@@ -4,7 +4,8 @@
     "pages/search/search",
     "pages/tab/tab",
     "pages/orilyric/orilyric",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/info/info"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -13,6 +14,6 @@
     "navigationBarTitleText": "我的歌本",
     "navigationBarTextStyle": "black",
     "navigationStyle": "default",
-		"enablePullDownRefresh":true
+    "enablePullDownRefresh": true
   }
 }
