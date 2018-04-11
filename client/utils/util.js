@@ -27,10 +27,8 @@ const showSuccess = text => wx.showToast({
 	icon: 'success'
 })
 
-// 显示失败提示
-var showModel = (title, content) => {
+const showModel = (title, content) => {
 	wx.hideToast();
-
 	wx.showModal({
 		title,
 		content: JSON.stringify(content),

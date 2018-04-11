@@ -26,6 +26,7 @@ Page({
 	 * uuid
 	 */
 	item: undefined,
+	changed: false,//是否有修改
 
 	data: {
 
@@ -40,7 +41,7 @@ Page({
 		isEditing: false,//是否处于编辑模式
 		info: undefined,//谱子信息
 		chord: '',
-		param: '',	
+		param: '',
 		recentChords: [],
 		showButtons: false,//显示底部按钮们
 	},
@@ -130,11 +131,29 @@ Page({
 	},
 
 	onUnload() {
+		const _this = this
 		app.setup.fontSize = this.data.fontSize
 		app.setup.screenOn = this.data.screenOn
 		wx.setStorageSync('setup', app.setup)
+		if (this.changed) {
+			wx.showModal({
+				title: '',
+				content: '有修改未保存，是否保存？',
+				showCancel: true,
+				cancelText: '不保存',
+				cancelColor: '#ff0000',
+				confirmText: '保存',
+				confirmColor: '',
+				success: function (res) {
+					if (res.confirm) {
+						_this._save()
+					}
+				},
+				fail: function (res) { },
+				complete: function (res) { },
+			})
+		}
 	},
-
 
 	onPageScroll(event) {
 		this.scrollTop = event.scrollTop
@@ -162,6 +181,26 @@ Page({
 			fontSize = this.data.fontSize == 1 ? 1 : this.data.fontSize - 1
 		}
 		this.setData({ fontSize })
+	},
+
+	//保存上传
+	_save() {
+		const _this = this
+		promise.getUUID()
+			.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
+				uuid, song: {
+					tab: this.data.tab,
+					info: this.data.info,
+					songId: this.item.songId,
+					songName: this.item.songName,
+					artistName: this.item.artistName,
+				}
+			}, 'POST'))
+			.then(res => {
+				if (res.data.code != 1985) throw ''
+				util.showSuccess('上传成功')
+				_this.changed = false
+			})
 	},
 
 	//点击功能按钮
@@ -194,21 +233,7 @@ Page({
 			}
 			//上传
 			case 4: {
-				const _this = this
-				promise.getUUID()
-					.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
-						uuid, song: {
-							tab: this.data.tab,
-							info: this.data.info,
-							songId: this.item.songId,
-							songName: this.item.songName,
-							artistName: this.item.artistName,
-						}
-					}, 'POST'))
-					.then(res => {
-						if (res.data.code != 1985) throw ''
-						util.showSuccess('上传成功')
-					})
+				_this._save()
 
 				break
 			}
@@ -291,6 +316,7 @@ Page({
 
 	//点击一个歌词
 	onClickRowItem(event) {
+		this.changed = true
 		const position = event.currentTarget.dataset.position
 		const lineIdx = position.split('-')[0]
 		const rowIdx = position.split('-')[1]
