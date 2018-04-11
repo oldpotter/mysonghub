@@ -1,3 +1,4 @@
+const app = getApp()
 const formatTime = date => {
 	const year = date.getFullYear()
 	const month = date.getMonth() + 1
@@ -41,4 +42,9 @@ const showError = title => wx.showToast({
 	image: '../../resources/error.png',
 })
 
-module.exports = { formatTime, showBusy, showSuccess, showModel, showError }
+const cs = app.debug ? console : {
+	log() { },
+	error(){}
+}
+
+module.exports = { formatTime, showBusy, showSuccess, showModel, showError, cs }

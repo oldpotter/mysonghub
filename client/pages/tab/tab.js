@@ -15,7 +15,6 @@ Page({
 	scrollTop: 0,//页面滚动距离px
 	scrollTo: 0,//要滚到的距离
 	scrollInterval: undefined,
-	screenOn: false,//屏幕常亮
 	songId: undefined,
 	/**
 	 * artistName
@@ -29,7 +28,7 @@ Page({
 	item: undefined,
 
 	data: {
-		fontSize: 1,
+
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
@@ -41,76 +40,81 @@ Page({
 		isEditing: false,//是否处于编辑模式
 		info: undefined,//谱子信息
 		chord: '',
-		param: '',
+		param: '',	
 		recentChords: [],
 		showButtons: false,//显示底部按钮们
-		items: [
-			{
-				idx: 1,
-				title: '滚屏',
-				on: false,
-				src: '../../resources/run.png',
-				srcOn: '../../resources/run_on.png'
-			},
-			{
-				idx: 2,
-				title: '编辑',
-				on: false,
-				src: '../../resources/edit.png',
-				srcOn: '../../resources/edit_on.png',
-
-			},
-			{
-				idx: 999,
-				title: '分享',
-				on: false,
-				src: '../../resources/share.png',
-				srcOn: '../../resources/share_on.png',
-				autoOff: true,
-				isShare: true,
-			},
-			{
-				idx: 3,
-				title: '帮助',
-				on: false,
-				src: '../../resources/tip.png',
-				srcOn: '../../resources/tip_on.png',
-				autoOff: true
-			},
-			{
-				idx: 4,
-				title: '上传',
-				on: false,
-				src: '../../resources/upload.png',
-				srcOn: '../../resources/upload_on.png',
-				autoOff: true
-			},
-			{
-				idx: 5,
-				title: '屏幕',
-				on: false,
-				src: '../../resources/screen.png',
-				srcOn: '../../resources/screen_on.png',
-			},
-			{
-				idx: 6,
-				title: '字体',
-				on: false,
-				src: '../../resources/font.png',
-				srcOn: '../../resources/font_on.png',
-			},
-			{
-				idx: 7,
-				title: '删除',
-				on: false,
-				src: '../../resources/delete.png',
-				srcOn: '../../resources/delete_on.png',
-				autoOff: true
-			},
-		]
 	},
 
 	onLoad(options) {
+		//data数据初始化
+		this.setData({
+			screenOn: app.setup.screenOn,//屏幕常亮
+			fontSize: app.setup.fontSize || 1,
+			items: [
+				{
+					idx: 2,
+					title: '编辑',
+					on: false,
+					src: '../../resources/edit.png',
+					srcOn: '../../resources/edit_on.png',
+
+				},
+				{
+					idx: 4,
+					title: '保存',
+					on: false,
+					src: '../../resources/upload.png',
+					srcOn: '../../resources/upload_on.png',
+					autoOff: true
+				},
+				{
+					idx: 1,
+					title: '滚屏',
+					on: false,
+					src: '../../resources/run.png',
+					srcOn: '../../resources/run_on.png'
+				},
+				{
+					idx: 6,
+					title: '字体',
+					on: false,
+					src: '../../resources/font.png',
+					srcOn: '../../resources/font_on.png',
+				},
+				{
+					idx: 5,
+					title: '屏幕',
+					on: app.setup.screenOn,
+					src: '../../resources/screen.png',
+					srcOn: '../../resources/screen_on.png',
+				},
+				{
+					idx: 999,
+					title: '分享',
+					on: false,
+					src: '../../resources/share.png',
+					srcOn: '../../resources/share_on.png',
+					autoOff: true,
+					isShare: true,
+				},
+				{
+					idx: 3,
+					title: '帮助',
+					on: false,
+					src: '../../resources/tip.png',
+					srcOn: '../../resources/tip_on.png',
+					autoOff: true
+				},
+				{
+					idx: 7,
+					title: '删除',
+					on: false,
+					src: '../../resources/delete.png',
+					srcOn: '../../resources/delete_on.png',
+					autoOff: true
+				},
+			]
+		})
 		this.songId = options.songId
 		promise.pRequest(`${config.service.getSongUrl}?songId=${this.songId}`)
 			.then(res => {
@@ -125,6 +129,12 @@ Page({
 			.catch(() => util.showError())
 	},
 
+	onUnload() {
+		app.setup.fontSize = this.data.fontSize
+		app.setup.screenOn = this.data.screenOn
+		wx.setStorageSync('setup', app.setup)
+	},
+
 
 	onPageScroll(event) {
 		this.scrollTop = event.scrollTop
@@ -136,8 +146,8 @@ Page({
 
 	onShareAppMessage() {
 		return {
-			path:`/pages/tab/tab?songId=${this.item.songId}`,
-			fail(res){
+			path: `/pages/tab/tab?songId=${this.item.songId}`,
+			fail(res) {
 				util.showError('转发失败')
 			}
 		}
@@ -204,13 +214,11 @@ Page({
 			}
 			//常亮
 			case 5: {
-				this.screenOn = !this.screenOn
+				this.setData({ screenOn: !this.data.screenOn })
 				wx.setKeepScreenOn({
-					keepScreenOn: this.screenOn,
-					success: function (res) { },
-					fail: function (res) { },
-					complete: function (res) { },
+					keepScreenOn: _this.data.screenOn,
 				})
+
 				break
 			}
 			//字体

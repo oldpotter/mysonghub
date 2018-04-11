@@ -15,12 +15,6 @@ Component({
 		hidden: Boolean
 	},
 
-	ready() {
-		const items = this.data.items
-		items.forEach(i => i.on = false)
-		this.setData({ items })
-	},
-
 	methods: {
 		tap(event) {
 			const index = event.currentTarget.dataset.index
@@ -36,7 +30,7 @@ Component({
 					[param]: false
 				}), 1000)
 			}
-			this.triggerEvent('ontap', { idx:this.data.items[index].idx }, {})
+			this.triggerEvent('ontap', { idx: this.data.items[index].idx }, {})
 		}
 	}
 })

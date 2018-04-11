@@ -1,8 +1,8 @@
-const config = require('../../config.js')
-const promise = require('../../utils/promise.js')
 const util = require('../../utils/util.js')
+const config = require('../../config.js')
 Page({
-	onReady(){
-		util.showError('出错啦')
+	onLoad(){
+		// util.cs.error('sad')
+		util.cs.log(config.service.searchUrl)
 	}
 })
