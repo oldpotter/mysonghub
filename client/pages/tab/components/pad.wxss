@@ -4,7 +4,7 @@
   width: 100%;
   position: fixed;
   left: 0;
-  bottom: 120rpx;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -12,6 +12,7 @@
   text-align: center;
   background: lightgray;
   z-index: 1;
+	/* padding: 0; */
 }
 
 .head {
@@ -25,13 +26,13 @@
 }
 
 .body {
-	width: 100%;
+  width: 100%;
 }
 
-.border{
-	height: 1rpx;
-	width: 100%;
-	background: darkgray;
+.border {
+  height: 1rpx;
+  width: 100%;
+  background: darkgray;
 }
 
 .line {
@@ -39,11 +40,11 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-	align-content: flex-start;
+  align-content: flex-start;
   flex-wrap: wrap;
   max-height: 150rpx;
-	position: relative;
-	padding: 10rpx 20rpx;
+  position: relative;
+  padding: 10rpx 20rpx;
 }
 
 .btn_item {
@@ -52,14 +53,25 @@
   height: 60rpx;
   border-radius: 20rpx;
   background: #ececec;
-	margin: 5rpx 10rpx;
+  margin: 5rpx 10rpx;
 }
 
-.btns{
-	width: 100%;
+.btns {
+  width: 100%;
 }
 
-button{
-	margin: 10rpx 20rpx;
-	float: right;
+button {
+  margin: 10rpx 20rpx;
+  float: right;
+}
+
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.canvas{
+	border: 1rpx solid #ececec;
+	height: 500rpx;
 }

@@ -1,22 +1,30 @@
 <view class='bg' hidden='{{!show}}' catchtouchmove='catm'>
-  <view class='head'>{{chord}}</view>
-  <view class='body'>
-    <block wx:for='{{items}}'>
-      <view class='border'></view>
-      <scroll-view scroll-x>
-        <view class='line'>
-          <block wx:for='{{item.item}}' wx:for-item='btnItem' wx:for-index='no'>
-            <view class='btn_item' hover-class='onTouch' data-position='{{index}}-{{no}}' catchtap='onClickBtn'>
-              <text>{{btnItem}}</text>
-            </view>
-          </block>
-        </view>
-      </scroll-view>
-    </block>
-  </view>
-  <view class='border'></view>
-  <view class='btns'>
-    <button type='primary' size='mini' catchtap='ok'>确定</button>
-    <button size='mini' catchtap='del'>删除</button>
-  </view>
+  <block wx:if='{{!showChordPad}}'>
+    <view class='head'>{{chord}}</view>
+    <view class='body'>
+      <block wx:for='{{items}}'>
+        <view class='border'></view>
+        <scroll-view scroll-x>
+          <view class='line'>
+            <block wx:for='{{item.item}}' wx:for-item='btnItem' wx:for-index='no'>
+              <view class='btn_item' hover-class='onTouch' data-position='{{index}}-{{no}}' catchtap='onClickBtn'>
+                <text>{{btnItem}}</text>
+              </view>
+            </block>
+          </view>
+        </scroll-view>
+      </block>
+    </view>
+    <view class='border'></view>
+    <view class='btns'>
+      <button type='primary' size='mini' catchtap='ok'>确定</button>
+      <button size='mini' catchtap='del'>删除</button>
+      <button size='mini' catchtap='chord' disabled='{{chord==""}}'>和弦图</button>
+    </view>
+  </block>
+  <block wx:else>
+    <view>
+      <canvas class='canvas' canvas-id="myCanvas" bindtouchstart="start" bindtouchmove="move" bindtouchend="end" />
+    </view>
+  </block>
 </view>

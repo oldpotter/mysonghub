@@ -29,7 +29,7 @@ Page({
 	changed: false,//是否有修改
 
 	data: {
-
+		showBtns: true,
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
@@ -43,10 +43,14 @@ Page({
 		chord: '',
 		param: '',
 		recentChords: [],
-		showButtons: false,//显示底部按钮们
 	},
 
 	onLoad(options) {
+		if (app.setup.screenOn) {
+			wx.setKeepScreenOn({
+				keepScreenOn: true,
+			})
+		}
 		//data数据初始化
 		this.setData({
 			screenOn: app.setup.screenOn,//屏幕常亮
@@ -304,6 +308,7 @@ Page({
 				// 停止滚屏
 				clearInterval(this.scrollInterval)
 			}
+			this.setData({ showBtns: !isPlaying })
 		} else if (eventName == 'top') {
 			wx.pageScrollTo({
 				scrollTop: 0,
@@ -316,6 +321,7 @@ Page({
 
 	//点击一个歌词
 	onClickRowItem(event) {
+		this.setData({ showBtns: false })
 		this.changed = true
 		const position = event.currentTarget.dataset.position
 		const lineIdx = position.split('-')[0]
@@ -346,21 +352,28 @@ Page({
 		})
 	},
 
-	//关闭面板
-	onPadClosed(event) {
-		this.setData({
-			[this.data.param]: event.detail
-		})
-		const recentChords = this.data.recentChords
-		const exist = recentChords.some(chord => chord === event.detail)
-		if (!exist) {
-			recentChords.push(event.detail)
-			this.setData({ recentChords })
+	//面板
+	bindPad(event) {
+		if (event.detail.event == 'ok') {
+			this.setData({
+				[this.data.param]: event.detail.value,
+				showBtns: true
+			})
+			const recentChords = this.data.recentChords
+			const exist = recentChords.some(chord => chord === event.detail)
+			if (!exist) {
+				recentChords.push(event.detail)
+				this.setData({ recentChords })
+			}
+		} else if (event.detail.event == 'chord') {
+			util.cs.log('show chord pad')
 		}
+
 	},
 
 	//info
 	bindInfo(event) {
+		this.changed = true
 		this.setData({ info: event.detail.info })
 	},
 })

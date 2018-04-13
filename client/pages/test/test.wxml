@@ -1,0 +1,9 @@
+ <picker mode='multiSelector' range='{{items}}' range-key='value' value='{{indexs}}' bindchange='bindChange' bindcolumnchange='bindColumnChange'>
+  <view>现在的值是：{{items[0][indexs[0]].value}}{{items[1][indexs[1]].value}}</view>
+</picker>
+
+<!-- <picker mode='selector' range='{{items}}' range-key='value' value='{{index}}' bindchange='bindchange'>
+  <view>
+    现在的值：{{items[index].value}}
+  </view>
+</picker> -->

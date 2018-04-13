@@ -1,7 +1,4 @@
 App({
-	//调试
-	debug: true,
-
 	onLaunch: function () {
 		this.setup = wx.getStorageSync('setup') || {}
 

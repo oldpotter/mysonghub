@@ -1,4 +1,4 @@
-const app = getApp()
+const config = require('../config.js')
 const formatTime = date => {
 	const year = date.getFullYear()
 	const month = date.getMonth() + 1
@@ -40,9 +40,9 @@ const showError = title => wx.showToast({
 	image: '../../resources/error.png',
 })
 
-const cs = app.debug ? console : {
+const cs = config.debug ? console : {
 	log() { },
-	error(){}
+	error() { }
 }
 
 module.exports = { formatTime, showBusy, showSuccess, showModel, showError, cs }
