@@ -12,7 +12,7 @@
   text-align: center;
   background: lightgray;
   z-index: 1;
-	/* padding: 0; */
+  /* padding: 0; */
 }
 
 .head {
@@ -66,12 +66,24 @@ button {
 }
 
 .center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.canvas{
-	border: 1rpx solid #ececec;
-	height: 500rpx;
+.row{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.canvas {
+  border: 1rpx solid #ececec;
+  width: 225px;
+  height: 270px;
+}
+
+.picker{
+	margin: 30px 10px;
 }

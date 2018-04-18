@@ -7,7 +7,7 @@
         <scroll-view scroll-x>
           <view class='line'>
             <block wx:for='{{item.item}}' wx:for-item='btnItem' wx:for-index='no'>
-              <view class='btn_item' hover-class='onTouch' data-position='{{index}}-{{no}}' catchtap='onClickBtn'>
+              <view class='btn_item' hover-class='onTouch' data-position='{{index}}-{{no}}' catchtap='onClickItem'>
                 <text>{{btnItem}}</text>
               </view>
             </block>
@@ -17,14 +17,26 @@
     </view>
     <view class='border'></view>
     <view class='btns'>
-      <button type='primary' size='mini' catchtap='ok'>确定</button>
-      <button size='mini' catchtap='del'>删除</button>
-      <button size='mini' catchtap='chord' disabled='{{chord==""}}'>和弦图</button>
+      <button type='primary' size='mini' catchtap='onClickOKBtn'>确定</button>
+      <button size='mini' catchtap='onClickDelBtn'>删除</button>
+      <button size='mini' catchtap='onClickChordMapBtn' disabled='{{chord==""}}'>和弦图</button>
     </view>
   </block>
-  <block wx:else>
-    <view>
+  <view hidden='{{!showChordPad}}'>
+    <view class='row'>
+      <picker class='picker' mode='selector' range='{{range}}' bindchange='onPickerChange'>
+        <view>
+          Fret:{{chordInfo[30]}}
+        </view>
+      </picker>
       <canvas class='canvas' canvas-id="myCanvas" bindtouchstart="start" bindtouchmove="move" bindtouchend="end" />
+
     </view>
-  </block>
+    <view class='btns'>
+      <button type='primary' size='mini' catchtap='onClickOKFret'>确定</button>
+      <button size='mini' catchtap='onClickClearFret'>删除</button>
+    </view>
+  </view>
+
+
 </view>

@@ -29,7 +29,14 @@ Page({
 	changed: false,//是否有修改
 
 	data: {
-		showBtns: true,
+		showBtns: true,//显示页面底部功能按钮
+		/**
+		 * type:Array
+		 * 	- type:Array
+		 * 		-type:string , key:chord
+		 * 		-type:string  , key:word
+		 * 		-type:Array , key: chordInfo
+		 */
 		tab: undefined,
 		showPad: false,//是否显示和弦面板
 		showScrollPad: false,//是否显示调速面板
@@ -40,7 +47,7 @@ Page({
 		2、点击单字添加和弦。`,//帮助
 		isEditing: false,//是否处于编辑模式
 		info: undefined,//谱子信息
-		chord: '',
+		selectItem: undefined,//当前选择的歌词item
 		param: '',
 		recentChords: [],
 	},
@@ -130,6 +137,64 @@ Page({
 					tab: song.tab,
 					info: song.info
 				})
+				for (let i = 0; i < this.data.tab.length; i++) {
+					for (let j = 0; j < this.data.tab[i].length; j++) {
+						if (this.data.tab[i][j].chordInfo) {
+							const ctx = wx.createCanvasContext(`canvas-${i}-${j}`, this)
+							const w = 8
+							const h = 12
+							const top = 10
+							const left = 10
+							ctx.setStrokeStyle('Black')
+							//竖线
+							for (let m = 0; m < 6; m++) {
+								ctx.moveTo(left + m * w, top)
+								ctx.lineTo(left + m * w, top + h * 4)
+							}
+							ctx.stroke()
+							//横线
+							ctx.setStrokeStyle('DarkGray')
+							for (let m = 0; m < 5; m++) {
+								ctx.moveTo(left, top + h * m)
+								ctx.lineTo(left + w * 5, top + h * m)
+							}
+							ctx.stroke()
+							// util.cs.log(this.data.tab[i][j].chordInfo)
+							this.data.tab[i][j].chordInfo.forEach((value, idx) => {
+
+								let a, b
+								if (idx <= 5) {
+									a = left + idx * w
+									b = top - 2
+									if (value != 0) {
+										ctx.beginPath()
+										ctx.setFontSize(8)
+										ctx.setTextAlign('center')
+										ctx.fillText(value == 1 ? 'o' : 'x', a, b)
+									}
+								} else if (idx == 30) {
+									a = left - 5
+									b = top + 6
+									ctx.beginPath()
+									ctx.setFontSize(10)
+									ctx.setTextAlign('center')
+									ctx.fillText(value + '', a, b)
+								} else {
+									idx -= 6
+									a = left + idx % 6 * w
+									b = top + parseInt(idx / 6) * h + h / 2
+									if (value) {
+										ctx.beginPath()
+										ctx.arc(a, b, 3, 0, 2 * Math.PI)
+										ctx.setFillStyle('Black')
+										ctx.fill()
+									}
+								}
+							})
+							ctx.draw()
+						}
+					}
+				}
 			})
 			.catch(() => util.showError())
 	},
@@ -321,17 +386,22 @@ Page({
 
 	//点击一个歌词
 	onClickRowItem(event) {
-		this.setData({ showBtns: false })
-		this.changed = true
 		const position = event.currentTarget.dataset.position
 		const lineIdx = position.split('-')[0]
 		const rowIdx = position.split('-')[1]
-		const param = `tab[${lineIdx}][${rowIdx}].chord`
-		this.setData({
-			showPad: true,
-			chord: this.data.tab[lineIdx][rowIdx].chord,
-			param
-		})
+		if (this.data.isEditing) {
+			this.setData({ showBtns: false })
+			this.changed = true
+			const param = `tab[${lineIdx}][${rowIdx}]`
+			this.setData({
+				showPad: true,
+				selectItem: this.data.tab[lineIdx][rowIdx],
+				param
+			})
+		} else if (this.data.tab[lineIdx][rowIdx].chordInfo) {
+
+		}
+
 	},
 
 	//长按一行
@@ -356,7 +426,7 @@ Page({
 	bindPad(event) {
 		if (event.detail.event == 'ok') {
 			this.setData({
-				[this.data.param]: event.detail.value,
+				[this.data.param + '.chord']: event.detail.value,
 				showBtns: true
 			})
 			const recentChords = this.data.recentChords
@@ -365,8 +435,11 @@ Page({
 				recentChords.push(event.detail)
 				this.setData({ recentChords })
 			}
-		} else if (event.detail.event == 'chord') {
-			util.cs.log('show chord pad')
+		} else if (event.detail.event == 'chordInfo') {
+			const { chordInfo } = event.detail
+			this.setData({
+				[this.data.param + '.chordInfo']: chordInfo,
+			})
 		}
 
 	},

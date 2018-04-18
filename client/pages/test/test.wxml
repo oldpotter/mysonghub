@@ -1,9 +1,6 @@
- <picker mode='multiSelector' range='{{items}}' range-key='value' value='{{indexs}}' bindchange='bindChange' bindcolumnchange='bindColumnChange'>
-  <view>现在的值是：{{items[0][indexs[0]].value}}{{items[1][indexs[1]].value}}</view>
-</picker>
+<block wx:if='{{show}}'>
+  <!-- <canvas hidden='{{!show}}' canvas-id='canvas' style='height:300rpx;width:250rpx;border:1rpx solid lightgray'></canvas> -->
+	<button>qsadfsdf</button>
+</block>
 
-<!-- <picker mode='selector' range='{{items}}' range-key='value' value='{{index}}' bindchange='bindchange'>
-  <view>
-    现在的值：{{items[index].value}}
-  </view>
-</picker> -->
+<button bindtap='tap'>1111</button>

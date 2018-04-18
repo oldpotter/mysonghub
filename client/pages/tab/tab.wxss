@@ -50,3 +50,12 @@
 	width: 50rpx;
 	height: 50rpx;
 }
+
+.chord{
+	/* background: lightblue; */
+}
+.canvas_mini{
+	width: 55px;
+	height: 60px;
+	/* background: aqua; */
+}
