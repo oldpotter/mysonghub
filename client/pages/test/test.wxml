@@ -1,6 +1,28 @@
-<block wx:if='{{show}}'>
-  <!-- <canvas hidden='{{!show}}' canvas-id='canvas' style='height:300rpx;width:250rpx;border:1rpx solid lightgray'></canvas> -->
-	<button>qsadfsdf</button>
-</block>
+<view class='bg'>
+  <scroll-view scroll-y class='scroll'>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+	<view>11111</view>
+    <canvas canvas-id='canvas' style='height:300rpx;width:250rpx;border:1rpx solid lightgray'>
+    </canvas>
+  </scroll-view>
+</view>
 
-<button bindtap='tap'>1111</button>
+<!-- <view class='bottom'></view> -->

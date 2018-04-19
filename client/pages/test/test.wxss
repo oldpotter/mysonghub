@@ -1,6 +1,21 @@
 .bg{
-	background: saddlebrown;
 	position: absolute;
 	width: 100%;
 	height: 100%;
+}
+
+.bottom {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 200rpx;
+  background: aqua;
+}
+
+.scroll {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: yellowgreen;
 }

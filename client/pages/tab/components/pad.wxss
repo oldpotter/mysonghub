@@ -87,3 +87,8 @@ button {
 .picker{
 	margin: 30px 10px;
 }
+
+.help{
+	color: darkgray;
+	font-size: 12px;
+}

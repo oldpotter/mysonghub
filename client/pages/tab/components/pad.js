@@ -44,7 +44,8 @@ Component({
 					'm', '#', 'b', 'add', 'sus', 'maj', 'min', '+', '-', '/',
 					'1', '2', '3', '4', '5', '6', '7', '9', '11', '13'
 				]
-			},]
+			},
+		]
 	},
 
 	methods: {
@@ -78,12 +79,15 @@ Component({
 			this.setData({
 				show: false
 			})
-			this.triggerEvent('pad', { event: 'ok', value: this.data.chord }, {})
+			this.triggerEvent('pad', { event: 'ok', chord: this.data.chord, chordInfo: this.data.chordInfo }, {})
 		},
 
 		//点击删除按钮
 		onClickDelBtn() {
-			this.setData({ chord: '' })
+			this.setData({
+				chord: '',
+				chordInfo: []
+			})
 		},
 
 		//点击和弦图按钮
@@ -219,7 +223,7 @@ Component({
 		//确定和弦图
 		onClickOKFret() {
 			this.setData({ showChordPad: false })
-			this.triggerEvent('pad', { event: 'chordInfo', chordInfo: this.data.chordInfo }, {})
+
 		},
 
 		//清空和弦图

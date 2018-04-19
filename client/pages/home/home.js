@@ -23,13 +23,13 @@ Page({
 				autoOff: true,
 				contact: true,
 			},
-			{
-				idx: 3,
-				title: '公众号',
-				on: false,
-				src: '../../resources/gzh.png',
-				srcOn: '../../resources/gzh.png',
-			},
+			// {
+			// 	idx: 3,
+			// 	title: '公众号',
+			// 	on: false,
+			// 	src: '../../resources/gzh.png',
+			// 	srcOn: '../../resources/gzh.png',
+			// },
 		]
 	},
 	onPullDownRefresh() {

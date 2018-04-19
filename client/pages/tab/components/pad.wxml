@@ -14,6 +14,21 @@
           </view>
         </scroll-view>
       </block>
+      <block wx:if='{{recentItems.length>0}}'>
+        <view class='border'></view>
+				<text class='help'>最近标记和弦</text>
+        <scroll-view scroll-x>
+          <view class='line'>
+            <block wx:for='{{recentItems}}'>
+              <view class='btn_item' hover-class='onTouch' data-index='{{index}}' catchtap='onClickRecentItem'>
+                <text>{{item.chord}}</text>
+              </view>
+            </block>
+          </view>
+        </scroll-view>
+      </block>
+
+
     </view>
     <view class='border'></view>
     <view class='btns'>
@@ -37,6 +52,4 @@
       <button size='mini' catchtap='onClickClearFret'>删除</button>
     </view>
   </view>
-
-
 </view>

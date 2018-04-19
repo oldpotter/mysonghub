@@ -6,15 +6,15 @@
 <kl-buttons items='{{items}}' hidden='{{!showBtns}}' bind:ontap='onClickKLButtons' />
 
 <view class='bg'>
-  <pad show='{{showPad}}' chord='{{selectItem.chord}}' chordInfo='{{selectItem.chordInfo}}' recentItems='{{recentChords}}' bind:pad='bindPad' />
+  <pad show='{{showPad}}' chord='{{editingItem.chord}}' chordInfo='{{editingItem.chordInfo}}' recentItems='{{recentChords}}' bind:pad='bindPad' />
   <font bind:font='bindFont' hidden='{{!showFont}}' />
   <info info='{{info}}' isEditing='{{isEditing}}' bind:info='bindInfo' />
   <view class='tab' wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
     <block wx:for='{{lineItem}}' wx:for-item='rowItem' wx:for-index='rowIdx'>
       <view class='row_item {{isEditing?"row_item_editing":""}} font_{{fontSize}}' hover-class='{{isEditing?"on-hovor":""}}' catchtap='onClickRowItem' catchlongpress='{{isEditing?"onLongPressRowItem":""}}' data-position='{{lineIdx}}-{{rowIdx}}'>
-				 <view wx:if='{{rowItem.chordInfo}}'>
-					<canvas class='canvas_mini' canvas-id='canvas-{{lineIdx}}-{{rowIdx}}'></canvas>
-				</view> 
+        <view wx:if='{{rowItem.chordInfo&&rowItem.chordInfo.length>0}}'>
+          <canvas class='canvas_mini' canvas-id='canvas-{{lineIdx}}-{{rowIdx}}'></canvas>
+        </view>
         <view class='{{rowItem.chordInfo?"chord":""}}'>{{rowItem.chord}}</view>
         <view>
           <text decode='true'>{{rowItem.word}}</text>

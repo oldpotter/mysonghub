@@ -47,8 +47,8 @@ Page({
 		2、点击单字添加和弦。`,//帮助
 		isEditing: false,//是否处于编辑模式
 		info: undefined,//谱子信息
-		selectItem: undefined,//当前选择的歌词item
-		param: '',
+		editingItem: undefined,//正在标记的单字
+		editingItemIdx: undefined,//正在标记的单字idx
 		recentChords: [],
 	},
 
@@ -141,57 +141,7 @@ Page({
 					for (let j = 0; j < this.data.tab[i].length; j++) {
 						if (this.data.tab[i][j].chordInfo) {
 							const ctx = wx.createCanvasContext(`canvas-${i}-${j}`, this)
-							const w = 8
-							const h = 12
-							const top = 10
-							const left = 10
-							ctx.setStrokeStyle('Black')
-							//竖线
-							for (let m = 0; m < 6; m++) {
-								ctx.moveTo(left + m * w, top)
-								ctx.lineTo(left + m * w, top + h * 4)
-							}
-							ctx.stroke()
-							//横线
-							ctx.setStrokeStyle('DarkGray')
-							for (let m = 0; m < 5; m++) {
-								ctx.moveTo(left, top + h * m)
-								ctx.lineTo(left + w * 5, top + h * m)
-							}
-							ctx.stroke()
-							// util.cs.log(this.data.tab[i][j].chordInfo)
-							this.data.tab[i][j].chordInfo.forEach((value, idx) => {
-
-								let a, b
-								if (idx <= 5) {
-									a = left + idx * w
-									b = top - 2
-									if (value != 0) {
-										ctx.beginPath()
-										ctx.setFontSize(8)
-										ctx.setTextAlign('center')
-										ctx.fillText(value == 1 ? 'o' : 'x', a, b)
-									}
-								} else if (idx == 30) {
-									a = left - 5
-									b = top + 6
-									ctx.beginPath()
-									ctx.setFontSize(10)
-									ctx.setTextAlign('center')
-									ctx.fillText(value + '', a, b)
-								} else {
-									idx -= 6
-									a = left + idx % 6 * w
-									b = top + parseInt(idx / 6) * h + h / 2
-									if (value) {
-										ctx.beginPath()
-										ctx.arc(a, b, 3, 0, 2 * Math.PI)
-										ctx.setFillStyle('Black')
-										ctx.fill()
-									}
-								}
-							})
-							ctx.draw()
+							this._drawChordInfo(ctx, this.data.tab[i][j].chordInfo)
 						}
 					}
 				}
@@ -239,6 +189,58 @@ Page({
 				util.showError('转发失败')
 			}
 		}
+	},
+
+	_drawChordInfo(ctx, chordInfo) {
+		const w = 8
+		const h = 12
+		const top = 10
+		const left = 10
+		ctx.setStrokeStyle('Black')
+		//竖线
+		for (let m = 0; m < 6; m++) {
+			ctx.moveTo(left + m * w, top)
+			ctx.lineTo(left + m * w, top + h * 4)
+		}
+		ctx.stroke()
+		//横线
+		ctx.setStrokeStyle('DarkGray')
+		for (let m = 0; m < 5; m++) {
+			ctx.moveTo(left, top + h * m)
+			ctx.lineTo(left + w * 5, top + h * m)
+		}
+		ctx.stroke()
+		chordInfo.forEach((value, idx) => {
+			let a, b
+			if (idx <= 5) {
+				a = left + idx * w
+				b = top - 2
+				if (value != 0) {
+					ctx.beginPath()
+					ctx.setFontSize(8)
+					ctx.setTextAlign('center')
+					ctx.fillText(value == 1 ? 'o' : 'x', a, b)
+				}
+			} else if (idx == 30) {
+				a = left - 5
+				b = top + 6
+				ctx.beginPath()
+				ctx.setFontSize(10)
+				ctx.setTextAlign('center')
+				ctx.fillText(value + '', a, b)
+			} else {
+				idx -= 6
+				a = left + idx % 6 * w
+				b = top + parseInt(idx / 6) * h + h / 2
+				if (value) {
+					ctx.beginPath()
+					ctx.arc(a, b, 3, 0, 2 * Math.PI)
+					ctx.setFillStyle('Black')
+					ctx.fill()
+				}
+			}
+		})
+		ctx.draw()
 	},
 
 	//字体大小
@@ -392,14 +394,11 @@ Page({
 		if (this.data.isEditing) {
 			this.setData({ showBtns: false })
 			this.changed = true
-			const param = `tab[${lineIdx}][${rowIdx}]`
 			this.setData({
 				showPad: true,
-				selectItem: this.data.tab[lineIdx][rowIdx],
-				param
+				editingItem: this.data.tab[lineIdx][rowIdx],
+				editingItemIdx: { lineIdx, rowIdx }
 			})
-		} else if (this.data.tab[lineIdx][rowIdx].chordInfo) {
-
 		}
 
 	},
@@ -425,21 +424,28 @@ Page({
 	//面板
 	bindPad(event) {
 		if (event.detail.event == 'ok') {
+			const { chord, chordInfo } = event.detail
+			const { lineIdx, rowIdx } = this.data.editingItemIdx
+			const param = `tab[${lineIdx}][${rowIdx}]`
 			this.setData({
-				[this.data.param + '.chord']: event.detail.value,
+				[param + 'chord']: chord,
+				[param + 'chordInfo']: chordInfo,
 				showBtns: true
 			})
-			const recentChords = this.data.recentChords
-			const exist = recentChords.some(chord => chord === event.detail)
-			if (!exist) {
-				recentChords.push(event.detail)
-				this.setData({ recentChords })
+			//如果有和弦图，开始绘制
+			if (this.data.tab[lineIdx][rowIdx].chordInfo && this.data.tab[lineIdx][rowIdx].chordInfo.length > 0) {
+				this._drawChordInfo(wx.createCanvasContext(`canvas-${lineIdx}-${rowIdx}`, this), this.data.tab[lineIdx][rowIdx].chordInfo)
 			}
-		} else if (event.detail.event == 'chordInfo') {
-			const { chordInfo } = event.detail
-			this.setData({
-				[this.data.param + '.chordInfo']: chordInfo,
-			})
+			if (chord !== '') {
+				//最近使用和弦
+				const recentChords = this.data.recentChords
+				const exist = recentChords.some(item => item.chord === chord)
+				if (!exist) {
+					recentChords.push({ chord, chordInfo })
+					this.setData({ recentChords })
+					// util.cs.log(`最近和弦:${this.data.recentChords}`)
+				}
+			}
 		}
 
 	},
