@@ -2,6 +2,7 @@ const app = getApp()
 const config = require('../../config.js')
 const promise = require('../../utils/promise.js')
 const util = require('../../utils/util.js')
+const moment=require('../../vendor/moment.min.js')
 Page({
 	/**
 	 * song:{
@@ -60,12 +61,14 @@ Page({
 		}
 		//data数据初始化
 		this.setData({
+			guitarMode:app.setup.guitarMode,
 			screenOn: app.setup.screenOn,//屏幕常亮
 			fontSize: app.setup.fontSize || 1,
 			items: [
 				{
 					idx: 2,
 					title: '编辑',
+					disable:!app.setup.guitarMode,
 					on: false,
 					src: '../../resources/edit.png',
 					srcOn: '../../resources/edit_on.png',
@@ -85,6 +88,13 @@ Page({
 					on: false,
 					src: '../../resources/run.png',
 					srcOn: '../../resources/run_on.png'
+				},
+				{
+					idx: 1000,
+					title: '录音',
+					on: false,
+					src: '../../resources/recording.png',
+					srcOn: '../../resources/recording_on.png',
 				},
 				{
 					idx: 6,
@@ -265,7 +275,8 @@ Page({
 					songId: this.item.songId,
 					songName: this.item.songName,
 					artistName: this.item.artistName,
-				}
+				},
+				date: moment().unix()
 			}, 'POST'))
 			.then(res => {
 				if (res.data.code != 1985) throw ''
@@ -279,6 +290,50 @@ Page({
 		const _this = this
 		const idx = event.detail.idx
 		switch (idx) {
+			//录音
+			case 1000: {
+				const param = `items[3].on`
+				this.setData({
+					[param]: !this.data.items[3].on
+				})
+
+				const recorderManager = wx.getRecorderManager()
+				if (this.data.items[3].on) {
+					recorderManager.onStart(() => {
+						util.cs.log('recorder start')
+					})
+					recorderManager.onStop((res) => {
+						util.cs.log('recorder stop', res)
+						const { tempFilePath } = res
+						const audioCtx = wx.createInnerAudioContext()
+						audioCtx.src = tempFilePath
+						audioCtx.onPlay(() => {
+							util.cs.log('开始播放')
+						})
+						audioCtx.onError((res) => {
+							util.cs.log(`播放出错啦:${JSON.stringify(res)}`)
+							
+						})
+						audioCtx.play()
+					})
+					recorderManager.onFrameRecorded((res) => {
+						const { frameBuffer } = res
+						console.log('frameBuffer.byteLength', frameBuffer.byteLength)
+					})
+					const options = {
+						duration: 1000 * 60 * 5,
+						sampleRate: 44100,
+						numberOfChannels: 1,
+						encodeBitRate: 320000,
+						format: 'mp3',
+						frameSize: 50
+					}
+					recorderManager.start(options)
+				} else {
+					recorderManager.stop()
+				}
+				break
+			}
 			//滚屏
 			case 1: {
 				const showScrollPad = !this.data.showScrollPad

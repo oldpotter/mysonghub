@@ -4,9 +4,10 @@
 }
 
 .cell {
-  border: 1rpx solid lightgray;
   padding: 50rpx 30rpx;
   margin: 30rpx;
+	box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.09);
+  border-radius: 20rpx;
 }
 
 .inline_block{

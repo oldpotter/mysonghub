@@ -8,14 +8,18 @@
 <view class='bg'>
   <pad show='{{showPad}}' chord='{{editingItem.chord}}' chordInfo='{{editingItem.chordInfo}}' recentItems='{{recentChords}}' bind:pad='bindPad' />
   <font bind:font='bindFont' hidden='{{!showFont}}' />
-  <info info='{{info}}' isEditing='{{isEditing}}' bind:info='bindInfo' />
+  <block wx:if='{{guitarMode}}'>
+    <info info='{{info}}' isEditing='{{isEditing}}' bind:info='bindInfo' />
+  </block>
   <view class='tab' wx:for='{{tab}}' wx:for-item='lineItem' wx:for-index='lineIdx'>
     <block wx:for='{{lineItem}}' wx:for-item='rowItem' wx:for-index='rowIdx'>
       <view class='row_item {{isEditing?"row_item_editing":""}} font_{{fontSize}}' hover-class='{{isEditing?"on-hovor":""}}' catchtap='onClickRowItem' catchlongpress='{{isEditing?"onLongPressRowItem":""}}' data-position='{{lineIdx}}-{{rowIdx}}'>
-        <view wx:if='{{rowItem.chordInfo&&rowItem.chordInfo.length>0}}'>
-          <canvas class='canvas_mini' canvas-id='canvas-{{lineIdx}}-{{rowIdx}}'></canvas>
-        </view>
-        <view class='{{rowItem.chordInfo?"chord":""}}'>{{rowItem.chord}}</view>
+        <block wx:if='{{guitarMode}}'>
+          <view wx:if='{{rowItem.chordInfo&&rowItem.chordInfo.length>0}}'>
+            <canvas class='canvas_mini' canvas-id='canvas-{{lineIdx}}-{{rowIdx}}'></canvas>
+          </view>
+          <view class='{{rowItem.chordInfo?"chord":""}}'>{{rowItem.chord}}</view>
+        </block>
         <view>
           <text decode='true'>{{rowItem.word}}</text>
         </view>

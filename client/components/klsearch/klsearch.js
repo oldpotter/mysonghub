@@ -1,4 +1,7 @@
 Component({
+	properties:{
+		holder:String
+	},
 	search: undefined,
 	methods: {
 		input(event) {

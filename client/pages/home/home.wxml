@@ -1,7 +1,11 @@
 <!--pages/tab2/tab2.wxml-->
+
 <view class='list'>
+  <view class='search'>
+    <kl-search holder='查找我的歌曲' bind:klsearch='bindSearch' />
+  </view>
   <kl-list source='{{songs}}'>
-    <view wx:for='{{songs}}' wx:key='*this'>
+    <view wx:for='{{songs}}' wx:key='songId'>
       <view class='cell' data-song-id='{{item.songId}}' bindtap='onClickSong'>
         <view class='inline_block'>{{item.songName}}</view>
         <view class='artist inline_block'>{{item.artistName}}</view>

@@ -4,13 +4,11 @@
   position: absolute;
   left: 1rpx;
   top: 1rpx;
-	right: 1rpx;
-	bottom: 1rpx;
-	opacity: 0;
-	/* z-index: -1; */
-  /* width: 30rpx;
-  height: 30rpx; */
-   /* background: lightgreen;  */
+  right: 1rpx;
+  bottom: 1rpx;
+  opacity: 0;
+  /* z-index: -1; *//* width: 30rpx;
+  height: 30rpx; *//* background: lightgreen;  */
 }
 
 .touch {
@@ -48,6 +46,12 @@
   font-size: 11px;
   text-align: center;
   border-radius: 20rpx;
+  /* display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1; */
 }
 
 .img {

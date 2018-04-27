@@ -15,6 +15,7 @@ App({
 	 * screenOn:Boolean屏幕常亮
 	 * fontSize:Number字体大小
 	 * scrollSpeed:Number滚屏速度
+	 * guitarMode:Boolean吉他谱模式
 	 */
 	setup: undefined
 })

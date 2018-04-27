@@ -12,6 +12,7 @@
 	},
 	"appid": "wx0a402a0154166169",
 	"projectname": "mysonghub",
+	"compileType": "miniprogram",
 	"condition": {
 		"search": {
 			"current": -1,

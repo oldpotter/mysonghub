@@ -10,9 +10,9 @@ const knex = require('knex')({
 })
 
 async function upload(ctx) {
-	let { uuid, song } = ctx.request.body
+	let { uuid, song, date } = ctx.request.body
 	const { songId, songName, artistName } = song
-	await knex.raw("INSERT INTO `song`(`songId`, `uuid`,`songName`,`artistName`,`song`) VALUES (?,?,?,?,?) ON DUPLICATE KEY UPDATE `song`=?", [songId, uuid, songName, artistName, JSON.stringify(song), JSON.stringify(song)])
+	await knex.raw("INSERT INTO `song`(`songId`, `uuid`,`songName`,`artistName`,`song`,`date`) VALUES (?,?,?,?,?,?) ON DUPLICATE KEY UPDATE `song`=?,`date`=?", [songId, uuid, songName, artistName, JSON.stringify(song),date, JSON.stringify(song),date])
 		.then(res => {
 			ctx.state.code = 1985
 		})
@@ -25,7 +25,7 @@ async function upload(ctx) {
 async function getMySongs(ctx) {
 	const uuid = ctx.request.query.uuid
 	await knex('song')
-		.select('songId', 'songName', 'artistName')
+		.select('songId', 'songName', 'artistName','date')
 		.where({ uuid })
 		.then(res => ctx.state = {
 			code: 1985,

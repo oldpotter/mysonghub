@@ -1,7 +1,7 @@
 <!--pages/tab1/tab1.wxml-->
 <view class='bg'>
   <view class='search'>
-    <kl-search bind:klsearch='bindSearch' />
+    <kl-search holder='搜索歌曲' bind:klsearch='bindSearch' />
   </view>
   <kl-list source='{{songs}}'>
     <view wx:for='{{songs}}' wx:key='*this'>

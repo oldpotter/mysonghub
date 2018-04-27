@@ -5,50 +5,74 @@ const util = require('../../utils/util.js')
 Page({
 	data: {
 		songs: undefined,
-		items: [
-			{
-				idx: 1,
-				title: '搜歌词',
-				on: false,
-				src: '../../resources/search.png',
-				srcOn: '../../resources/search_on.png',
-				autoOff: true
-			},
-			{
-				idx: 2,
-				title: '提意见',
-				on: false,
-				src: '../../resources/contact.png',
-				// srcOn: '../../resources/cont.png',
-				autoOff: true,
-				contact: true,
-			},
-			// {
-			// 	idx: 3,
-			// 	title: '公众号',
-			// 	on: false,
-			// 	src: '../../resources/gzh.png',
-			// 	srcOn: '../../resources/gzh.png',
-			// },
-		]
+
 	},
+
+	onLoad() {
+		const guitarMode = app.setup.guitarMode || false
+		this.setData({
+			items: [
+				{
+					idx: 1,
+					title: '搜歌词',
+					on: false,
+					src: '../../resources/search.png',
+					srcOn: '../../resources/search_on.png',
+					autoOff: true
+				},
+				{
+					idx: 2,
+					title: '提意见',
+					on: false,
+					src: '../../resources/contact.png',
+					// srcOn: '../../resources/cont.png',
+					autoOff: true,
+					contact: true,
+				},
+				{
+					idx: 3,
+					title: '吉他谱',
+					on: guitarMode,
+					src: '../../resources/guitar.png',
+					srcOn: '../../resources/guitar_on.png',
+				},
+			]
+		})
+	},
+
 	onPullDownRefresh() {
 		this._refreshData()
 	},
+
 	onShow() {
 		this._refreshData()
+	},
+
+	bindSearch(event) {
+		const value = event.detail.value
+		util.cs.log(`搜索${value}`)
+		if (!value) {
+			this._refreshData()
+			return
+		}
+		let songs = this.data.songs
+		songs = songs.filter(song => song.songName.indexOf(value) != -1 || song.artistName.indexOf(value) != -1)
+		this.setData({ songs })
 	},
 
 	_refreshData() {
 		promise.getUUID()
 			.then(uuid => promise.pRequest(`${config.service.getMySongsUrl}?uuid=${uuid}`))
 			.then(res => {
+				// util.cs.log(res.data.data)
 				if (res.data.code != 1985) throw {}
-				this.setData({ songs: res.data.data })
-				// console.log(this.data.songs)
+				let songs = res.data.data
+				songs = songs.sort((i, j) => -(i.date - j.date))
+				this.setData({ songs })
+				// util.cs.log(`songs:${JSON.stringify(songs)}`)
 			})
 			.catch(err => {
-				console.error('error:', err)
+				util.cs.error('error:', err)
 				util.showError()
 			})
 			.finally(() => {
@@ -84,14 +108,21 @@ Page({
 				})
 				break
 			}
-			//公众号
-			case 3:{
-				wx.navigateTo({
-					url: '../info/info',
-					success: function(res) {},
-					fail: function(res) {},
-					complete: function(res) {},
+			//吉他谱
+			case 3: {
+				const guitarMode = app.setup.guitarMode || false
+				app.setup.guitarMode = !guitarMode
+				wx.setStorage({
+					key: 'setup',
+					data: app.setup,
+					success: function (res) {
+						util.showSuccess(!guitarMode ? '显示吉他谱' : '关闭吉他谱')
+					},
+					fail: function (res) { },
+					complete: function (res) { },
 				})
+
+				break
 			}
 
 		}

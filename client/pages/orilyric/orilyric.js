@@ -2,6 +2,7 @@ const config = require('../../config.js')
 const util = require('../../utils/util.js')
 const app = getApp()
 const promise = require('../../utils/promise.js')
+const moment = require('../../vendor/moment.min.js')
 Page({
 	songId: undefined,
 	songName: undefined,
@@ -85,18 +86,19 @@ Page({
 						{ title: 'Key', value: '' },
 						{ title: 'Play', value: '' },
 						{ title: 'Capo', value: '' },
-					]
-				}
+					],
+
+				},
+				date: moment().unix()
 			}, 'POST'))
 			.then(res => {
 				if (res.data.code != 1985) {
+					util.log.error(res)
 					throw ''
 				}
-				wx.navigateTo({
+
+				wx.redirectTo({
 					url: `../tab/tab?songId=${this.songId}`,
-					success: function (res) { },
-					fail: function (res) { },
-					complete: function (res) { },
 				})
 			})
 			.catch(err => { util.showError })
