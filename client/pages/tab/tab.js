@@ -86,15 +86,9 @@ Page({
 					idx: 1,
 					title: '滚屏',
 					on: false,
+					disable:true,
 					src: '../../resources/run.png',
 					srcOn: '../../resources/run_on.png'
-				},
-				{
-					idx: 1000,
-					title: '录音',
-					on: false,
-					src: '../../resources/recording.png',
-					srcOn: '../../resources/recording_on.png',
 				},
 				{
 					idx: 6,
@@ -421,9 +415,10 @@ Page({
 				//开始滚屏
 				this.scrollInterval = setInterval(() => {
 					this.scrollTo = this.scrollTop + value
+					util.cs.log(`scroll to:${this.scrollTo}`)
 					wx.pageScrollTo({
 						scrollTop: this.scrollTo,
-						duration: 200,
+						duration: 1000,
 					})
 				}, 1000)
 			} else {

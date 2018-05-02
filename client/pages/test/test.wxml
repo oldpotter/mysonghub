@@ -1,28 +1,5 @@
-<view class='bg'>
-  <scroll-view scroll-y class='scroll'>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-	<view>11111</view>
-    <canvas canvas-id='canvas' style='height:300rpx;width:250rpx;border:1rpx solid lightgray'>
-    </canvas>
-  </scroll-view>
+<view wx:for='{{items}}'>
+	item:{{item}}
 </view>
 
-<!-- <view class='bottom'></view> -->
+<button class='click' bindtap='click'>click me</button>
