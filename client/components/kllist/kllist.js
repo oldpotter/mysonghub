@@ -4,6 +4,13 @@ Component({
 			type:Array,
 			value:[]
 		},
-		isLoading:Boolean
+		isLoading:Boolean,
+		error:Boolean
 	},
+
+	methods:{
+		bindtap(){
+			this.triggerEvent('kllist',{},{})
+		},
+	}
 })

@@ -5,3 +5,7 @@
 	font-size: 14px;
 	color: #ececec;
 }
+.btn{
+	padding: 100rpx;
+	top: 50%;
+}

@@ -4,8 +4,14 @@ const config = require('../../config.js')
 const util = require('../../utils/util.js')
 Page({
 	data: {
-		songs: undefined,
-
+		listProps: {
+			songs: undefined,
+			error: false
+		},
+		searchProps: {
+			holder: '查找我的歌曲',
+			bind: 'bindSearch',
+		}
 	},
 
 	onLoad() {
@@ -40,10 +46,6 @@ Page({
 		})
 	},
 
-	onPullDownRefresh() {
-		this._refreshData()
-	},
-
 	onShow() {
 		this._refreshData()
 	},
@@ -60,6 +62,11 @@ Page({
 		this.setData({ songs })
 	},
 
+	bindList(event) {
+		util.cs.log('bindList......')
+		this._refreshData()
+	},
+
 	_refreshData() {
 		promise.getUUID()
 			.then(uuid => promise.pRequest(`${config.service.getMySongsUrl}?uuid=${uuid}`))
@@ -68,12 +75,20 @@ Page({
 				if (res.data.code != 1985) throw {}
 				let songs = res.data.data
 				songs = songs.sort((i, j) => -(i.date - j.date))
-				this.setData({ songs })
+				this.setData({
+					listProps:{
+						songs,
+						error:false
+					}
+				})
 				// util.cs.log(`songs:${JSON.stringify(songs)}`)
 			})
 			.catch(err => {
-				util.cs.error('error:', err)
 				util.showError()
+				const param = 'listProps.error'
+				this.setData({
+					[param]: true
+				})
 			})
 			.finally(() => {
 				wx.stopPullDownRefresh()

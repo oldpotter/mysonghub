@@ -14,6 +14,6 @@
     "navigationBarTitleText": "我的歌本",
     "navigationBarTextStyle": "black",
     "navigationStyle": "default",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": false
   }
 }

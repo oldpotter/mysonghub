@@ -7,4 +7,7 @@
   <view class='center' wx:if='{{isLoading}}'>
     ----正在加载----
   </view>
+  <view class='btn' wx:if='{{error}}'>
+    <button plain='true' bindtap='bindtap'>重试</button>
+  </view>
 </view>

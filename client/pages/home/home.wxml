@@ -2,10 +2,11 @@
 
 <view class='list'>
   <view class='search'>
-    <kl-search holder='查找我的歌曲' bind:klsearch='bindSearch' />
+    <kl-search holder='{{searchProps.holder}}'
+		error='{{searchProps.error}}' bind:klsearch='bindSearch' />
   </view>
-  <kl-list source='{{songs}}'>
-    <view wx:for='{{songs}}' wx:key='songId'>
+  <kl-list source='{{listProps.songs}}' error='{{listProps.error}}' bind:kllist='bindList'>
+    <view wx:for='{{listProps.songs}}' wx:key='songId'>
       <view class='cell' data-song-id='{{item.songId}}' bindtap='onClickSong'>
         <view class='inline_block'>{{item.songName}}</view>
         <view class='artist inline_block'>{{item.artistName}}</view>

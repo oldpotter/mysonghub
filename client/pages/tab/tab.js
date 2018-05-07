@@ -86,7 +86,6 @@ Page({
 					idx: 1,
 					title: '滚屏',
 					on: false,
-					disable:true,
 					src: '../../resources/run.png',
 					srcOn: '../../resources/run_on.png'
 				},
