@@ -9,6 +9,11 @@ App({
 				reason => P.resolve(callback()).then(() => { throw reason })
 			);
 		}
+
+		wx.cloud.init({
+			traceUser: true,
+			env: 'test-24bda5'
+		})
 	},
 
 	/**

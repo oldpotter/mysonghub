@@ -7,8 +7,25 @@ Page({
 
 
 	bindSearch(event) {
+		//搜索歌曲
 		const _this = this
 		const value = event.detail.value
+		wx.cloud.callFunction({
+			name: 'search_song',
+			data: {
+				keywords: value
+			}
+		})
+		.then(res => {
+			if(res.result){
+				let result = JSON.parse(res.result)
+				result = result.result
+				_this.setData({ songs: result.songs })
+				// console.log('找到', result.songs.length)
+			}
+		})
+		.catch(console.error)
+		/*
 		promise.pRequest(`${config.service.searchUrl}${value}`)
 			.then(res => {
 				if (res.statusCode == 200) {
@@ -18,6 +35,8 @@ Page({
 					}
 				}
 			})
+	
+	*/
 	},
 
 

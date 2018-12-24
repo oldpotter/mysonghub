@@ -10,7 +10,7 @@ Component({
 			const value = event.detail.value
 			this.search = setTimeout(() => {
 				this.triggerEvent('klsearch', { value }, {})
-			}, 500)
+			}, 1000)
 		}
 	}
 })

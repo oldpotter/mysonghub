@@ -1,8 +1,9 @@
 {
-	"client": "./client",
-	"svr": "./server",
-	"miniprogramRoot": "./client",
-	"qcloudRoot": "./server",
+	"client": "client/",
+	"svr": "server/",
+	"miniprogramRoot": "client/",
+	"cloudfunctionRoot": "cloud/",
+	"qcloudRoot": "server/",
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
@@ -13,7 +14,7 @@
 	"appid": "wx0a402a0154166169",
 	"projectname": "mysonghub",
 	"compileType": "miniprogram",
-	"libVersion": "2.1.0",
+	"libVersion": "2.4.2",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -31,7 +32,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 2,
 			"list": [
 				{
 					"id": 0,
@@ -43,6 +44,12 @@
 					"id": -1,
 					"name": "Test",
 					"pathName": "pages/test/test",
+					"query": ""
+				},
+				{
+					"id": 2,
+					"name": "搜索界面",
+					"pathName": "pages/search/search",
 					"query": ""
 				}
 			]
