@@ -69,24 +69,27 @@ Page({
   },
 
   _refreshData() {
+		const _this = this
     //获取用户的歌曲列表
-    wx.showLoading({
-      title: '',
-      mask: true,
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
-    })
-    wx.cloud.callFunction({
-        name: 'get_user_songs',
-      })
-      .then(res => {
-        console.log('get_user_songs:', res)
-        wx.hideLoading()
-      })
-      .catch(err => {
-        wx.hideLoading()
-      })
+    util.showBusy()
+		const db = wx.cloud.database()
+		db.collection('songs')
+		.orderBy('updateDate', 'desc')
+		.get({
+			success(res){
+				if(res.data){
+					let songs = res.data
+					songs = songs.map(song => song.song)
+					_this.setData({
+						listProps: {
+							songs,
+							error: false
+						}
+					})
+				}
+					util.hide()
+			}
+		})
     /*
     promise.getUUID()
     	.then(uuid => promise.pRequest(`${config.service.getMySongsUrl}?uuid=${uuid}`))

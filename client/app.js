@@ -1,3 +1,4 @@
+const config = require('./config.js')
 App({
 	onLaunch: function () {
 		this.setup = wx.getStorageSync('setup') || {}
@@ -11,8 +12,8 @@ App({
 		}
 
 		wx.cloud.init({
-			traceUser: true,
-			env: 'test-24bda5'
+			traceUser: config.debug,
+			env: config.debug ? 'test-24bda5' :'cloud-24bda5'
 		})
 	},
 

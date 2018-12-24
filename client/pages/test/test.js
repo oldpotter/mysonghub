@@ -1,14 +1,11 @@
 Page({
 	onLoad(){
-		wx.cloud.callFunction({
-			name: 'search_song',
+		const db = wx.cloud.database()
+		db.collection('songs').add({
 			data: {
-				keywards: '朴树'
-			},
+				song: '平凡之路'
+			}
 		})
-		.then(res=>{
-			console.log('res:', res)
-		})
-		.catch(console.error)
+		.then(res => console.log(res))
 	}
 })

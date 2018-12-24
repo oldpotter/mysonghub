@@ -4,15 +4,7 @@ const promise = require('../../utils/promise.js')
 const util = require('../../utils/util.js')
 const moment = require('../../vendor/moment.min.js')
 Page({
-  /**
-   * song:{
-   * 	songName:
-   * 	artistName:
-   * 	info:
-   * 	tab:
-   * 	songId:
-   * }
-   */
+  song: undefined,
   scrollTop: 0, //页面滚动距离px
   scrollTo: 0, //要滚到的距离
   scrollInterval: undefined,
@@ -54,6 +46,7 @@ Page({
   },
 
   onLoad(options) {
+		const _this = this
     if (app.setup.screenOn) {
       wx.setKeepScreenOn({
         keepScreenOn: true,
@@ -130,6 +123,34 @@ Page({
       ]
     })
     this.songId = options.songId
+    //从服务器获取歌谱信息
+    const db = wx.cloud.database()
+    db.collection('songs').where({
+        'song.songId': options.songId
+      })
+      .orderBy('createDate', 'desc')
+      .get({
+        success(res) {
+          if (res.data[0]) {
+            _this.song = res.data[0]
+						let song = _this.song.song
+            _this.setData({
+              tab: song.tab,
+              info: song.info
+            })
+
+            for (let i = 0; i < this.data.tab.length; i++) {
+              for (let j = 0; j < this.data.tab[i].length; j++) {
+                if (this.data.tab[i][j].chordInfo) {
+                  const ctx = wx.createCanvasContext(`canvas-${i}-${j}`, this)
+                  this._drawChordInfo(ctx, this.data.tab[i][j].chordInfo)
+                }
+              }
+            }
+          }
+        }
+      })
+    /*
     promise.pRequest(`${config.service.getSongUrl}?songId=${this.songId}`)
       .then(res => {
         if (res.data.code != 1985) throw {}
@@ -149,6 +170,7 @@ Page({
         }
       })
       .catch(() => util.showError())
+  */
   },
 
   onUnload() {
@@ -263,6 +285,18 @@ Page({
   //保存上传
   _save() {
     const _this = this
+		const db = wx.cloud.database()
+		db.collection('songs').doc(_this.song._id).update({
+			data: {
+				song: _this.song.song,
+				updateDate: db.serverDate()
+			},
+			success(res){
+				_this.changed = false
+				util.showSuccess('保存成功')
+			}
+		})
+		/*
     promise.getUUID()
       .then(uuid => promise.pRequest(config.service.uploadSongUrl, {
         uuid,
@@ -280,7 +314,8 @@ Page({
         util.showSuccess('上传成功')
         _this.changed = false
       })
-  },
+  */
+	},
 
   //点击功能按钮
   onClickKLButtons(event) {
@@ -336,8 +371,8 @@ Page({
           }
           break
         }
-      //滚屏
-			case 1:
+        //滚屏
+      case 1:
         {
           const showScrollPad = !this.data.showScrollPad
           this.setData({
@@ -400,7 +435,6 @@ Page({
           break
         }
         //删除
-      case 7:
         {
           wx.showModal({
             title: '删除',
@@ -453,7 +487,7 @@ Page({
           util.cs.log(`scroll to:${this.scrollTo}`)
           wx.pageScrollTo({
             scrollTop: this.scrollTo,
-            duration: 1000,
+            duration: 0,
           })
         }, 2000)
       } else {
@@ -532,6 +566,7 @@ Page({
         [param + 'chordInfo']: chordInfo,
         showBtns: true
       })
+			this.song.song.tab  = this.data.tab
       //如果有和弦图，开始绘制
       if (this.data.tab[lineIdx][rowIdx].chordInfo && this.data.tab[lineIdx][rowIdx].chordInfo.length > 0) {
         this._drawChordInfo(wx.createCanvasContext(`canvas-${lineIdx}-${rowIdx}`, this), this.data.tab[lineIdx][rowIdx].chordInfo)
@@ -561,5 +596,6 @@ Page({
     this.setData({
       info: event.detail.info
     })
+		this.song.song.info = this.data.info
   },
 })

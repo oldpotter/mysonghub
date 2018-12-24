@@ -14,7 +14,7 @@
 	"appid": "wx0a402a0154166169",
 	"projectname": "mysonghub",
 	"compileType": "miniprogram",
-	"libVersion": "2.4.2",
+	"libVersion": "2.4.3",
 	"condition": {
 		"search": {
 			"current": -1,

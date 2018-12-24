@@ -28,6 +28,30 @@ Page({
 			util.showError('songId不存在')
 			return
 		}
+		//获取歌词
+		wx.cloud.callFunction({
+			name: 'get_lyric',
+			data: {
+				id: this.songId
+			}
+		})
+		.then(res => {
+			if(res.result){
+				let result = JSON.parse(res.result)
+				if (!result.lrc) {
+					util.showError('没有歌词')
+					const param = `items[0].disable`
+					_this.setData({
+						[param]: true
+					})
+					return
+				}
+				const oriLyric = result.lrc.lyric
+					.replace(/\[[\d.:]+\]/g, '')
+				_this.setData({ oriLyric })
+			}
+		})
+		/*
 		promise.pRequest(`${config.service.lyricUrl}${this.songId}`)
 			.then(res => {
 				if (res.statusCode == 200) {
@@ -45,10 +69,12 @@ Page({
 					_this.setData({ oriLyric })
 				}
 			})
+	*/
 	},
 
 	//开始编辑歌词
 	edit() {
+		const _this = this
 		if (!this.data.oriLyric) {
 			return
 		}
@@ -74,7 +100,29 @@ Page({
 					return item
 				})
 			})
-
+		//上传歌词到服务器
+		const db = wx.cloud.database()
+		db.collection('songs').add({
+			data: {
+				song: {
+					songId: this.songId,
+					songName: this.songName,
+					artistName: this.artistName,
+					tab: tab,
+					info: [
+						{ title: 'Key', value: '' },
+						{ title: 'Play', value: '' },
+						{ title: 'Capo', value: '' },
+					],
+				},
+				createDate: db.serverDate(),
+				updateDate: db.serverDate()
+			}
+		})
+			.then(res => wx.redirectTo({
+				url: `../tab/tab?songId=${_this.songId}`,
+			}))
+		/*
 		promise.getUUID()
 			.then(uuid => promise.pRequest(config.service.uploadSongUrl, {
 				uuid, song: {
@@ -102,5 +150,6 @@ Page({
 				})
 			})
 			.catch(err => { util.showError })
+	*/
 	},
 })
